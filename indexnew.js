@@ -506,7 +506,7 @@ function callAVANEW(agent) {
           break;
         //28/01/2019
         case 'getNumeroMatricola':
-          controller.getCarriera('s262502').then((carriera)=> {
+          controller.getCarriera('s262501').then((carriera)=> {
             var strTemp='';
             strTemp+='' + carriera.matricola;
           console.log('chiedo il numero di matricola ...');
@@ -521,9 +521,11 @@ function callAVANEW(agent) {
           resolve(agent);
             
           }).catch((error) => {
-            console.log('Si è verificato errore : ' +error);
             
-          
+            var strError='Si è verificato errore : ' +error;
+            console.log(strError);
+            agent.add(strError);
+            resolve(agent);
           });
           break;
           //28/01/2019
