@@ -152,6 +152,9 @@ app.get('/', function(req, res, next) {
     agent.sessionId=req.body.session.split('/').pop();
   //assegno all'agente il parametro di ricerca da invare sotto forma di searchText a Panloquacity
     agent.parameters['Command']=req.body.queryResult.parameters.Command;
+    //fulfillment text
+    agent.fulfillmentText=req.body.queryResult.fulfillmentText;
+    console.log('----> fulfillment text =' +agent.fulfillmentText);
     console.info(` sessione agente ` + agent.sessionId +` con parametri` + agent.parameters.Command);
   
     
