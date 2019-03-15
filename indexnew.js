@@ -146,9 +146,9 @@ app.get('/', function(req, res, next) {
     //10/01/2019
     //copiato codice da progetto api
     console.log('------sono su HeadDemo app ----- la richiesta proviene da '+ agent.requestSource);
-    agent.intent.name=req.body.queryResult.intent.name;
-    agent.intent.displayName=req.body.queryResult.intent.displayName;
-    console.log('nome intent '+agent.intent.name+ ' , display name '+ agent.intent.displayName);
+    var name=req.body.queryResult.intent.name;
+    var displayname=req.body.queryResult.intent.displayName;
+    console.log('nome intent '+name+ ' , display name '+ displayname);
     //******************************************* */
     //recupero la sessionId della conversazione
     
