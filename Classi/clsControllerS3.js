@@ -571,9 +571,11 @@ function getMediaComplessiva(matId){
                 console.log('\n\nQUESTO IL BODY della media aritmetica ' +rawData);
                 //creo oggetto libretto
                 media=body[0].media;
+                
                 resolve(media);
             } else{
                 console.log('manca la media');
+                media='0';
                 resolve(media);
             }
           
