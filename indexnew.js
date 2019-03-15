@@ -29,8 +29,7 @@ env(__dirname + '/.env');
 var controller=require('./Classi/clsControllerS3.js');
 var studente=require('./Classi/clsStudente.js');
 var carrieraStudente=require('./Classi/clsCarriera.js');
-//test promise
-var prm=require('./testPromise.js');
+
 
 
 var app = express();
@@ -80,12 +79,6 @@ app.use(function (req, res, next) {
     }
   };
  
-//28/01/2019
-/*
-var responseFromPlq={
-  'strOutput':'',
-  'cmd':[]
-}*/
   app.get('/login', function(req, res, next) {
     controller.getMediaComplessiva('291783').then((libretto) => { 
       console.log('sono in getmediacomplessiva')
@@ -106,14 +99,7 @@ var responseFromPlq={
   
     }) 
 
-  //prova con async/away
-  app.get('/loginAA', async function(req, res, next) {
-     
-    var data=await prm.main();
-    res.json({'fulfillmentText':data});
 
-
-});
 app.get('/', function(req, res, next) {
     
   
@@ -123,7 +109,7 @@ app.get('/', function(req, res, next) {
  app.get('/testLocale', function(req, res, next) {
   
     res.send('ok')
-    //res.render("index", {  message:" Benvenuto nella pagina di test "});
+    
  
 });
  app.get('/testSessione', function(req, res, next) {
