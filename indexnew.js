@@ -162,8 +162,8 @@ app.get('/', function(req, res, next) {
   
     
     let intentMap = new Map();
-    
-    intentMap.set('numero di matricola #infopersonali #esse3', callAVANEW); //la funzione callAva sostiutisce la funzione welcome 
+    //'numero di matricola #infopersonali #esse3'
+    intentMap.set(displayname, callAVANEW); //la funzione callAva sostiutisce la funzione welcome 
     //intentMap.set('AnyText', callAVANEW); // callAVA anytext AnyText sostituisce 'qualunquetesto'
   
     
