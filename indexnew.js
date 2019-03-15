@@ -525,8 +525,8 @@ function callAVANEW(agent) {
             
             var strError='Si è verificato errore : ' +error;
             console.log(strError);
-           /* agent.add(strError);
-            resolve(agent);*/
+            agent.add(strError);
+            resolve(agent);
           });
           break;
           //28/01/2019
