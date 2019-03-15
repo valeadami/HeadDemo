@@ -10,7 +10,8 @@ const querystring = require('querystring');
 const parseurl = require('parseurl');
 const path = require("path");
 const https = require('https');
-
+const esameDC="DIRITTO COSTITUZIONALE";
+const esameEA="ECONOMIA AZIENDALE";
 
 /*** DIALOGFLOW FULFILLMENT */
 const {WebhookClient} = require('dialogflow-fulfillment');
@@ -155,6 +156,11 @@ app.get('/', function(req, res, next) {
     agent.sessionId=req.body.session.split('/').pop();
   //assegno all'agente il parametro di ricerca da invare sotto forma di searchText a Panloquacity
     agent.parameters['Command']=req.body.queryResult.parameters.Command;
+    if (req.body.queryResult.parameters.esame){
+
+      console.log(' ho esame =' + req.body.queryResult.parameters.esame);
+      agent.parameters['esame']=req.body.queryResult.parameters.esame;
+    }
     //fulfillment text
     agent.fulfillmentText=req.body.queryResult.fulfillmentText;
     console.log('----> fulfillment text =' +agent.fulfillmentText);
@@ -423,6 +429,13 @@ function callAVANEW(agent) {
     }  
     var strOutput=agent.fulfillmentText;
     console.log('strOutput agente prima di EsseTre :' + strOutput);
+    //HO ESAME??
+    if(agent.parameters.esame){
+
+      var paramEsame=agent.parameters.esame;
+      console.log('in callAvanew ho esame '+ paramEsame);
+    }
+    
     var tmp;
     
       switch (strRicerca) {
@@ -550,6 +563,7 @@ function callAVANEW(agent) {
           break;
           //29/01/2019 
           //14/03/2019: cambiato matId da 286879 a 291783, adsceId da 5057980 a 5188667
+          //15/03/2019 il comando getDirittoCostituzionale viene modificato in 
           //******** DIRITTO COSTITUZIONALE  */
           //getDirittoCostituzionale
           case 'getDirittoCostituzionale':
@@ -579,6 +593,66 @@ function callAVANEW(agent) {
           
           });
             break;
+            /****************** NUOVO : GESTIONE DINAMICA ESAMI 15/03/2019 **/
+            case 'getInfoGenEsame':
+            var strEsame='';
+            if (paramEsame===esameDC){
+              console.log('sono dentro getInfoGenEsame con esame diritto costituzionale');
+              controller.getEsame('291783','5188667').then((esame) => { 
+                var strTemp=''; 
+                console.log( '**************** dati del getDirittoCostituzionale******************');
+        
+                strTemp += ' anno di corso ' + esame.annoCorso +', codice '+ esame.adCod +', corso di ' + esame.adDes + ', crediti in  CFU' + esame.peso + ', attività didattica '
+                + esame.statoDes +', frequentata nel '+  esame.aaFreqId;
+                if (typeof esito !=='undefined' && esito.dataEsa!=='' && esito.voto!=null){
+                
+                //if (typeof esame.esito !=='undefined'){
+                  var dt= esame.esito.dataEsa;
+                  
+                  strTemp +=', superata in data ' + dt.substring(0,10) + ' con voto di ' + esame.esito.voto + ' trentesimi'
+                }
+                var str=strOutput;
+                str=str.replace(/(@)/gi, strTemp);
+                strOutput=str;
+                agent.add(strOutput);
+                console.log('strOutput con replace in getDirittoCostituzionale'+ strOutput);
+                resolve(agent);
+  
+            }).catch((error) => {
+              console.log('Si è verificato errore in getDirittoCostituzionale: ' +error);
+              
+            
+            });
+            } else{
+              //per il momento economia aziendale
+              controller.getEsame('291783','5188670').then((esame) => { 
+                var strTemp=''; 
+                console.log( '**************** dati del getEconomiaAziendale ******************');
+        
+                strTemp += ' anno di corso ' + esame.annoCorso +', codice '+ esame.adCod +', corso di ' + esame.adDes + ', crediti in  CFU' + esame.peso + ', attività didattica '
+                + esame.statoDes +' nel '+  esame.aaFreqId;
+                if (typeof esito !=='undefined' && esito.dataEsa!=='' && esito.voto!=null){
+                
+                  //if (typeof esame.esito !=='undefined'){
+                    var dt= esame.esito.dataEsa;
+                    
+                    strTemp +=', superata in data ' + dt.substring(0,10) + ' con voto di ' + esame.esito.voto + ' trentesimi'
+                  }
+                var str=strOutput;
+                str=str.replace(/(@)/gi, strTemp);
+                strOutput=str;
+                agent.add(strOutput);
+                console.log('strOutput con replace in getEconomiaAziendale'+ strOutput);
+                resolve(agent);
+  
+            }).catch((error) => {
+              console.log('Si è verificato errore in getEconomiaAziendale: ' +error);
+              
+            
+            });
+            }
+           
+          break;
             //******** DETTAGLIO DIRITTO COSTITUZIONALE  */
             case 'getAnnoDirittoCostituzionale':
             controller.GetDettaglioEsame('291783','5188667', 'annoCorso').then((esame) => { 
