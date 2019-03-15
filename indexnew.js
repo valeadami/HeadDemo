@@ -146,6 +146,9 @@ app.get('/', function(req, res, next) {
     //10/01/2019
     //copiato codice da progetto api
     console.log('------sono su HeadDemo app ----- la richiesta proviene da '+ agent.requestSource);
+    agent.intent.name=req.body.queryResult.intent.name;
+    agent.intent.displayName=req.body.queryResult.intent.displayName;
+    console.log('nome intent '+agent.intent.name+ ' , display name '+ agent.intent.displayName);
     //******************************************* */
     //recupero la sessionId della conversazione
     
@@ -160,7 +163,7 @@ app.get('/', function(req, res, next) {
     
     let intentMap = new Map();
     
-    intentMap.set('Mio numero di Matricola #infopersonali', callAVANEW); //la funzione callAva sostiutisce la funzione welcome 
+    intentMap.set('numero di matricola #infopersonali #esse3', callAVANEW); //la funzione callAva sostiutisce la funzione welcome 
     //intentMap.set('AnyText', callAVANEW); // callAVA anytext AnyText sostituisce 'qualunquetesto'
   
     
