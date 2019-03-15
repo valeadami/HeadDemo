@@ -507,7 +507,7 @@ function callAVANEW(agent) {
           break;
         //28/01/2019
         case 'getNumeroMatricola':
-          controller.getCarriera('s262502').then((carriera)=> {
+          controller.getCarriera('s262501').then((carriera)=> {
             var strTemp='';
             strTemp+='' + carriera.matricola;
           console.log('chiedo il numero di matricola ...');
