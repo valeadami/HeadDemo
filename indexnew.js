@@ -949,8 +949,13 @@ function callAVANEW(agent) {
           strTemp+=libretto.length;
           console.log('quanti esami ho fatto ='+ strTemp);
           
+        } else {
+            //caso in cui no ci sono esami
+          strTemp="0"
         }
         //qui devo fare replace della @, che si trova in tmp[0]
+        
+
         var str=strOutput;
         str=str.replace(/(@)/gi, strTemp);
         strOutput=str;
