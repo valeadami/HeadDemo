@@ -446,10 +446,7 @@ function callAVANEW(agent) {
             str=str.replace(/(@)/gi, strTemp);
             strOutput=str;
             agent.add(strOutput);
-            
             console.log('strOutput con replace '+ strOutput);
-            
-            //agent.setContext({ name: 'libretto', lifespan: 5, parameters: { matID: studente.trattiCarriera[0].matId }});
             resolve(agent);
           }).catch((error) => {
             console.log('Si è verificato errore : ' +error);
@@ -497,7 +494,6 @@ function callAVANEW(agent) {
           strOutput=str;
           agent.add(strOutput);
           console.log('strOutput con replace '+ strOutput);
-          //agent.setContext({ name: 'libretto', lifespan: 5, parameters: { matID: studente.trattiCarriera[0].matId }});
           resolve(agent);
           }).catch((error) => {
           console.log('Si è verificato errore : ' +error);
