@@ -443,9 +443,10 @@ function callAVANEW(agent) {
       switch (strRicerca) {
         case 'getLibretto':
           console.log('sono nel getLibretto');
+          var arIDS=[];
           controller.getLibretto().then((libretto)=> {
             var strTemp='';
-            var arIDS=[];
+           
             // strOutput='ecco gli esami ';
            
             if (Array.isArray(libretto)){
