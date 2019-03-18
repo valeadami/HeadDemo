@@ -494,10 +494,11 @@ function callAVANEW(agent) {
 
               //bb.parameters.id.id=arIDS;
               for(var i=0; i<arIDS.length;i++){
-                bb.parameters.id.id=arIDS[i].id;
+               /* bb.parameters.id.id=arIDS[i].id;
                 bb.parameters.id.descr=arIDS[i].descr;
                 console.log('bb.parameters.id.id= '+bb.parameters.id.id);
-                console.log('bb.parameters.id.descr= '+bb.parameters.id.descr);
+                console.log('bb.parameters.id.descr= '+bb.parameters.id.descr);*/
+                console.log('**********valori de sto arIds= '+ arIDS[i].descr+ ' descr '+arIDS[i].descr);
               }
               console.log('inserito i nuovi params');
             }
