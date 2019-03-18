@@ -445,17 +445,13 @@ function callAVANEW(agent) {
           console.log('sono nel getLibretto');
           var arIDS=[];
           var arEsami=[];
-          var temp={
-            id:0,
-            descr:'test'
-          };
-          var aa=agent.context.get('contesto');
-          if (aa){
+          var ctx=agent.context.get('contesto');
+          if (ctx){
             console.log('ho già il contesto');
           }else{
            //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['xxx','yyyy']}});
-           agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['prova'] }});
-           console.log('scrivo il contesto');
+           agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['prova'] ,"esami" :['esame']}});
+           console.log('scrivo il contesto in getLibretto ');
         }
           controller.getLibretto().then((libretto)=> {
             var strTemp='';
@@ -467,12 +463,12 @@ function callAVANEW(agent) {
               for(var i=0; i<libretto.length; i++){
                 //tolto 'esame di ' in data 29/01/2019 e aggiunti i campi per avere i dati come su EsseTre RigaLibretto
                 //prova del 18/03/2019
-                temp.id=libretto[i].adsceId;
-                temp.descr=libretto[i].adDes;
-                console.log('**********temp id '+ temp.id + ' temp.descr '+ temp.descr)
-                arIDS.push(temp);
-                console.log('+++++++++++++++++ valore di arIDS id='+ arIDS[i].id + ' arIDS name '+arIDS[i].descr);
-                console.log('******* inserito in arIDS '+arIDS[i].id);
+                
+                arIDS.push(libretto[i].adsceId);
+                console.log('inserito in arIDS '+arIDS[i]);
+                arEsami.push(libretto[i].adDes);
+                console.log('inserito in arEsami '+arEsami[i]);
+
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
     
@@ -486,23 +482,9 @@ function callAVANEW(agent) {
             agent.add(strOutput);
             console.log('strOutput con replace '+ strOutput);
             //provo qui  prova del 18/03/2019  FUNGE!!!
-            //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
-            /*if (aa){
-
-            }else{*/
-              var bb=agent.context.get('contesto');
-
-              //bb.parameters.id.id=arIDS;
-              for(var i=0; i<arIDS.length;i++){
-               /* bb.parameters.id.id=arIDS[i].id;
-                bb.parameters.id.descr=arIDS[i].descr;
-                console.log('bb.parameters.id.id= '+bb.parameters.id.id);
-                console.log('bb.parameters.id.descr= '+bb.parameters.id.descr);*/
-                console.log('**********valori de sto arIds= '+ arIDS[i].descr+ ' descr '+arIDS[i].descr);
-              }
-              console.log('inserito i nuovi params');
-            //}
-            //aa.parameters.id=arIDS;
+            ctx=agent.context.get('contesto');
+            ctx.parameters.id=arIDS;
+            ctx.parameters.esami=arEsami;
             /********************************************************************************/ 
             resolve(agent);
           }).catch((error) => {
