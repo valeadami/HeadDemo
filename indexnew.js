@@ -475,11 +475,7 @@ function callAVANEW(agent) {
                 console.log('******* inserito in arIDS '+arIDS[i].id);
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
-                //********************* */prova del 18/03/2019 NON VEDE LA SESSIONE DI EXPRESS
-                // req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
-                //****************************************************************** 
-                /**/
-
+    
               }
               
             }
@@ -495,7 +491,14 @@ function callAVANEW(agent) {
 
             }else{
               var bb=agent.context.get('contesto');
-              bb.parameters.id.id=arIDS;
+
+              //bb.parameters.id.id=arIDS;
+              for(var i=0; i<arIDS.length;i++){
+                bb.parameters.id.id=arIDS[i].id;
+                bb.parameters.id.descr=arIDS[i].descr;
+                console.log('bb.parameters.id.id= '+bb.parameters.id.id);
+                console.log('bb.parameters.id.descr= '+bb.parameters.id.descr);
+              }
               console.log('inserito i nuovi params');
             }
             //aa.parameters.id=arIDS;
