@@ -184,6 +184,7 @@ app.get('/', function(req, res, next) {
 
     console.log('Dialogflow Request headers: ' + JSON.stringify(req.headers));
     console.log('DIALOGFLOW Request body: ' + JSON.stringify(req.body));
+    console.log('vedo le var di sessione di Express ?? '+ req.session.id );
     //
     WebhookProcessing(req, res); 
   
@@ -454,7 +455,7 @@ function callAVANEW(agent) {
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
                 //********************* */prova del 18/01/2019
-                req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
+               //req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
                 //****************************************************************** */
               }
               
