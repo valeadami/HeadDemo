@@ -444,6 +444,11 @@ function callAVANEW(agent) {
         case 'getLibretto':
           console.log('sono nel getLibretto');
           var arIDS=[];
+          var arEsami=[];
+          var temp={
+            id:0,
+            descr:'test'
+          };
           var aa=agent.context.get('contesto');
           if (aa){
             console.log('ho già il contesto');
@@ -461,8 +466,11 @@ function callAVANEW(agent) {
               
               for(var i=0; i<libretto.length; i++){
                 //tolto 'esame di ' in data 29/01/2019 e aggiunti i campi per avere i dati come su EsseTre RigaLibretto
-                arIDS.push(libretto[i].adDes);
-                console.log('inserito in arIDS '+arIDS[i]);
+                //prova del 18/03/2019
+                temp.id=libretto[i].adsceId;
+                temp.desc=libretto[i].adDes;
+                arIDS.push(temp);
+                console.log('******* inserito in arIDS '+arIDS[i].id);
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
                 //********************* */prova del 18/03/2019 NON VEDE LA SESSIONE DI EXPRESS
