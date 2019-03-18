@@ -458,7 +458,7 @@ function callAVANEW(agent) {
                 //********************* */prova del 18/03/2019 NON VEDE LA SESSIONE DI EXPRESS
                 // req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
                 //****************************************************************** */
-                arIDS[i].push(libretto[i].adDes);
+                arIDS[i].push('porco');
                 console.log('inserito in arIDS '+arIDS[i]);
               }
               
