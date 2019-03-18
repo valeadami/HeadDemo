@@ -54,8 +54,6 @@ app.use(function (req, res, next) {
     req.session.username='';
     req.session.matId='';
     req.session.stuId='';
-    req.session.adsceId='';
-    req.session.esami = [];
     
   
     next();
@@ -122,7 +120,7 @@ app.get('/', function(req, res, next) {
       res.write("sono nella root ");
       res.write('<p>views: ' + req.session.views + '</p>')
       res.write('<p> id sessione ' + req.session.id  +' expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-      res.write('<p>id di esame ' + req.session.esami[0]  +'</p>')
+     
       res.end()
   
   })
@@ -416,7 +414,7 @@ function callAVA(agent) {
  
 
 //mia nuova che non funziona 
-function callAVANEW(agent,req) { 
+function callAVANEW(agent) { 
     return new Promise((resolve, reject) => {
   
     let strRicerca='';
@@ -447,16 +445,20 @@ function callAVANEW(agent,req) {
           console.log('sono nel getLibretto');
           controller.getLibretto().then((libretto)=> {
             var strTemp='';
+            var arIDS=[];
             // strOutput='ecco gli esami ';
+           
             if (Array.isArray(libretto)){
               
               for(var i=0; i<libretto.length; i++){
                 //tolto 'esame di ' in data 29/01/2019 e aggiunti i campi per avere i dati come su EsseTre RigaLibretto
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
-                //********************* */prova del 18/01/2019
-                 req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
+                //********************* */prova del 18/03/2019 NON VEDE LA SESSIONE DI EXPRESS
+                // req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
                 //****************************************************************** */
+                arIDS[i].push(libretto[i].adDes);
+                console.log('inserito in arIDS '+arIDS[i]);
               }
               
             }
@@ -466,6 +468,9 @@ function callAVANEW(agent,req) {
             strOutput=str;
             agent.add(strOutput);
             console.log('strOutput con replace '+ strOutput);
+            //provo qui  prova del 18/03/2019 
+            agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": arIDS }});
+            /********************************************************************************/ 
             resolve(agent);
           }).catch((error) => {
             console.log('Si è verificato errore : ' +error);
