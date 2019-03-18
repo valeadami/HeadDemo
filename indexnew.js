@@ -418,7 +418,7 @@ function callAVANEW(agent) {
     return new Promise((resolve, reject) => {
   
     let strRicerca='';
-    var arIDS=[];
+    var arIDS=['pp'];
     let sessionId = agent.sessionId /*.split('/').pop()*/;
     console.log('dentro call ava il mio session id '+sessionId);
 //questo lo tengo perchè mi serve per recuperare la stringa dall'agente
