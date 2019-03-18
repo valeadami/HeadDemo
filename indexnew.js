@@ -416,7 +416,7 @@ function callAVA(agent) {
  
 
 //mia nuova che non funziona 
-function callAVANEW(agent) { 
+function callAVANEW(agent,req) { 
     return new Promise((resolve, reject) => {
   
     let strRicerca='';
@@ -455,7 +455,7 @@ function callAVANEW(agent) {
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
                 //********************* */prova del 18/01/2019
-               //req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
+                 req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
                 //****************************************************************** */
               }
               
