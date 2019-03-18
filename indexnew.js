@@ -418,7 +418,7 @@ function callAVANEW(agent) {
     return new Promise((resolve, reject) => {
   
     let strRicerca='';
-    //var arIDS=['pp'];
+    var arIDS=[];
     let sessionId = agent.sessionId /*.split('/').pop()*/;
     console.log('dentro call ava il mio session id '+sessionId);
 //questo lo tengo perchè mi serve per recuperare la stringa dall'agente
@@ -448,7 +448,7 @@ function callAVANEW(agent) {
             console.log('ho già il contesto');
           }else{
            //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['xxx','yyyy']}});
-           agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['xxx','yyyy'] }});
+           agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['prova'] }});
            console.log('scrivo il contesto');
         }
           controller.getLibretto().then((libretto)=> {
@@ -465,8 +465,9 @@ function callAVANEW(agent) {
                 //********************* */prova del 18/03/2019 NON VEDE LA SESSIONE DI EXPRESS
                 // req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
                 //****************************************************************** 
-              /*  arIDS[i].push('porco');
-                console.log('inserito in arIDS '+arIDS[i]);*/
+                arIDS[i].push( libretto[i].adDes);
+                console.log('inserito in arIDS '+arIDS[i]);/* */
+
               }
               
             }
@@ -478,6 +479,7 @@ function callAVANEW(agent) {
             console.log('strOutput con replace '+ strOutput);
             //provo qui  prova del 18/03/2019  FUNGE!!!
             //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
+            aa.parameters.id=arIDS;
             /********************************************************************************/ 
             resolve(agent);
           }).catch((error) => {
