@@ -471,7 +471,7 @@ function callAVANEW(agent) {
                 temp.descr=libretto[i].adDes;
                 console.log('**********temp id '+ temp.id + ' temp.descr '+ temp.descr)
                 arIDS.push(temp);
-                console.log('+++++++++++++++++ valore di arIDS '+ arIDS[i]);
+                console.log('+++++++++++++++++ valore di arIDS id='+ arIDS[i].id + ' arIDS name '+arIDS[i].descr);
                 console.log('******* inserito in arIDS '+arIDS[i].id);
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
@@ -495,7 +495,7 @@ function callAVANEW(agent) {
 
             }else{
               var bb=agent.context.get('contesto');
-              bb.parameters.id=arIDS;
+              bb.parameters.id.id=arIDS;
               console.log('inserito i nuovi params');
             }
             //aa.parameters.id=arIDS;
