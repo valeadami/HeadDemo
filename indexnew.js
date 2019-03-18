@@ -182,8 +182,8 @@ app.get('/', function(req, res, next) {
 
     console.log('Dialogflow Request headers: ' + JSON.stringify(req.headers));
     console.log('DIALOGFLOW Request body: ' + JSON.stringify(req.body));
-    console.log('vedo le var di sessione di Express ?? '+ req.session.id );
-    //
+    //console.log('vedo le var di sessione di Express ?? '+ req.session.id );
+    
     WebhookProcessing(req, res); 
   
   
@@ -418,7 +418,7 @@ function callAVANEW(agent) {
     return new Promise((resolve, reject) => {
   
     let strRicerca='';
-    var arIDS=['pp'];
+    //var arIDS=['pp'];
     let sessionId = agent.sessionId /*.split('/').pop()*/;
     console.log('dentro call ava il mio session id '+sessionId);
 //questo lo tengo perchè mi serve per recuperare la stringa dall'agente
@@ -457,9 +457,9 @@ function callAVANEW(agent) {
                 libretto[i].annoCorso + '\n';
                 //********************* */prova del 18/03/2019 NON VEDE LA SESSIONE DI EXPRESS
                 // req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
-                //****************************************************************** */
-                arIDS[i].push('porco');
-                console.log('inserito in arIDS '+arIDS[i]);
+                //****************************************************************** 
+              /*  arIDS[i].push('porco');
+                console.log('inserito in arIDS '+arIDS[i]);*/
               }
               
             }
@@ -470,7 +470,7 @@ function callAVANEW(agent) {
             agent.add(strOutput);
             console.log('strOutput con replace '+ strOutput);
             //provo qui  prova del 18/03/2019 
-            agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": arIDS }});
+            //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": arIDS }});
             /********************************************************************************/ 
             resolve(agent);
           }).catch((error) => {
