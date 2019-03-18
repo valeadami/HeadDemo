@@ -622,11 +622,32 @@ function callAVANEW(agent) {
             /****************** NUOVO : GESTIONE DINAMICA ESAMI 15/03/2019 **/
             case 'getInfoGenEsame':
             var strEsame='';
-            if (paramEsame===esameDC){
-              console.log('sono dentro getInfoGenEsame con esame diritto costituzionale');
-              controller.getEsame('291783','5188667').then((esame) => { 
+            //nuovo del 18/03/2019
+
+            var ctx=agent.context.get('contesto');
+            if (ctx){
+              console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
+             
+              var idEsame='';
+            
+              for(var i =0;i<ctx.parameters.esami.length;i++){
+//ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
+                if (ctx.parameters.esami[i]===paramEsame){
+                  console.log('******** TROVATO ESAME IN PARAMS.ESAMI*******');
+                  idEsame=ctx.parameters.id[i];
+                  console.log('************ ID DI ESAME = '+idEsame);
+                  break;
+                }
+              }
+            }else{
+            
+            }
+
+          //  if (paramEsame===esameDC){   '5188667'
+              console.log('sono dentro getInfoGenEsame con esame '+paramEsame);
+              controller.getEsame('291783',idEsame).then((esame) => { 
                 var strTemp=''; 
-                console.log( '**************** dati del getDirittoCostituzionale******************');
+                console.log( '**************** dati del singolo esame ******************');
         
                 strTemp += ' anno di corso ' + esame.annoCorso +', codice '+ esame.adCod +', corso di ' + esame.adDes + ', crediti in  CFU' + esame.peso + ', attività didattica '
                 + esame.statoDes +', frequentata nel '+  esame.aaFreqId;
@@ -641,15 +662,15 @@ function callAVANEW(agent) {
                 str=str.replace(/(@)/gi, strTemp);
                 strOutput=str;
                 agent.add(strOutput);
-                console.log('strOutput con replace in getDirittoCostituzionale'+ strOutput);
+                console.log('strOutput con replace in OLDgetDirittoCostituzionale'+ strOutput);
                 resolve(agent);
   
             }).catch((error) => {
-              console.log('Si è verificato errore in getDirittoCostituzionale: ' +error);
+              console.log('Si è verificato errore in OLDgetDirittoCostituzionale: ' +error);
               
             
             });
-            } else{
+           /* } else{
               //per il momento economia aziendale
               controller.getEsame('291783','5188670').then((esame) => { 
                 var strTemp=''; 
@@ -670,14 +691,14 @@ function callAVANEW(agent) {
                 agent.add(strOutput);
                 console.log('strOutput con replace in getEconomiaAziendale'+ strOutput);
                 resolve(agent);
-  
+ 
             }).catch((error) => {
               console.log('Si è verificato errore in getEconomiaAziendale: ' +error);
               
             
-            });
+            }); 
             }
-           
+           */
           break;
             //******** DETTAGLIO DIRITTO COSTITUZIONALE  */
             case 'getAnnoDirittoCostituzionale':
