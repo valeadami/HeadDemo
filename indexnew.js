@@ -487,9 +487,9 @@ function callAVANEW(agent) {
             console.log('strOutput con replace '+ strOutput);
             //provo qui  prova del 18/03/2019  FUNGE!!!
             //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
-            if (aa){
+            /*if (aa){
 
-            }else{
+            }else{*/
               var bb=agent.context.get('contesto');
 
               //bb.parameters.id.id=arIDS;
@@ -501,7 +501,7 @@ function callAVANEW(agent) {
                 console.log('**********valori de sto arIds= '+ arIDS[i].descr+ ' descr '+arIDS[i].descr);
               }
               console.log('inserito i nuovi params');
-            }
+            //}
             //aa.parameters.id=arIDS;
             /********************************************************************************/ 
             resolve(agent);
