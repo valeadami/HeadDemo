@@ -418,7 +418,7 @@ function callAVANEW(agent) {
     return new Promise((resolve, reject) => {
   
     let strRicerca='';
-    var arIDS=['p'];
+    var arIDS=[];
     let sessionId = agent.sessionId /*.split('/').pop()*/;
     console.log('dentro call ava il mio session id '+sessionId);
 //questo lo tengo perchè mi serve per recuperare la stringa dall'agente
@@ -460,7 +460,7 @@ function callAVANEW(agent) {
               
               for(var i=0; i<libretto.length; i++){
                 //tolto 'esame di ' in data 29/01/2019 e aggiunti i campi per avere i dati come su EsseTre RigaLibretto
-                arIDS[i].push(libretto[i].adDes);
+                arIDS.push(libretto[i].adDes);
                 console.log('inserito in arIDS '+arIDS[i]);
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
