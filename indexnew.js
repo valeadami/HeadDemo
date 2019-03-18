@@ -468,8 +468,10 @@ function callAVANEW(agent) {
                 //tolto 'esame di ' in data 29/01/2019 e aggiunti i campi per avere i dati come su EsseTre RigaLibretto
                 //prova del 18/03/2019
                 temp.id=libretto[i].adsceId;
-                temp.desc=libretto[i].adDes;
+                temp.descr=libretto[i].adDes;
+                console.log('**********temp id '+ temp.id + ' temp.descr '+ temp.descr)
                 arIDS.push(temp);
+                console.log('+++++++++++++++++ valore di arIDS '+ arIDS[i]);
                 console.log('******* inserito in arIDS '+arIDS[i].id);
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
