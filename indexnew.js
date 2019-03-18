@@ -448,7 +448,7 @@ function callAVANEW(agent) {
             console.log('ho già il contesto');
           }else{
            //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['xxx','yyyy']}});
-           agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
+           agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['xxx','yyyy'] }});
            console.log('scrivo il contesto');
         }
           controller.getLibretto().then((libretto)=> {
