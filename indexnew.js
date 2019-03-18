@@ -437,15 +437,32 @@ function callAVANEW(agent) {
       var paramEsame=agent.parameters.esame;
       console.log('in callAvanew ho esame '+ paramEsame);
     }
+    //recupero la variabile legata al contesto
+    var ctx=agent.context.get('contesto');
+    if (ctx){
+      console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
+     
+      var idEsame='';
     
-    var tmp;
+      for(var i =0;i<ctx.parameters.esami.length;i++){
+      //ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
+        if (ctx.parameters.esami[i]===paramEsame){
+          console.log('******** TROVATO ESAME IN PARAMS.ESAMI*******');
+          idEsame=ctx.parameters.id[i];
+          console.log('************ ID DI ESAME = '+idEsame);
+          break;
+        }
+      }
+    }else{
+    //Da gestire il caso in cui il contesto non è presente
+    }
     
       switch (strRicerca) {
         case 'getLibretto':
           console.log('sono nel getLibretto');
           var arIDS=[];
           var arEsami=[];
-          var ctx=agent.context.get('contesto');
+          //var ctx=agent.context.get('contesto');
           if (ctx){
             console.log('ho già il contesto');
           }else{
@@ -590,8 +607,9 @@ function callAVANEW(agent) {
           //29/01/2019 
           //14/03/2019: cambiato matId da 286879 a 291783, adsceId da 5057980 a 5188667
           //15/03/2019 il comando getDirittoCostituzionale viene modificato in 
-          //******** DIRITTO COSTITUZIONALE  */
-          //getDirittoCostituzionale
+          //18/03/2019 DIVENTA OLD RIMPIAZZATO DA getInfoGenEsame
+          /******** DIRITTO COSTITUZIONALE 
+         
           case 'getDirittoCostituzionale':
             controller.getEsame('291783','5188667').then((esame) => { 
               var strTemp=''; 
@@ -601,7 +619,7 @@ function callAVANEW(agent) {
               + esame.statoDes +', frequentata nel '+  esame.aaFreqId;
               if (typeof esito !=='undefined' && esito.dataEsa!=='' && esito.voto!=null){
               
-              //if (typeof esame.esito !=='undefined'){
+            
                 var dt= esame.esito.dataEsa;
                 
                 strTemp +=', superata in data ' + dt.substring(0,10) + ' con voto di ' + esame.esito.voto + ' trentesimi'
@@ -617,21 +635,22 @@ function callAVANEW(agent) {
             console.log('Si è verificato errore in getDirittoCostituzionale: ' +error);
             
           
-          });
+          }); 
             break;
-            /****************** NUOVO : GESTIONE DINAMICA ESAMI 15/03/2019 **/
+            */
+            /****************** NUOVO : GESTIONE DINAMICA ESAMI 15/03/2019 E 18/03/2019 **/
             case 'getInfoGenEsame':
-            var strEsame='';
+            
             //nuovo del 18/03/2019
 
-            var ctx=agent.context.get('contesto');
+          /*
             if (ctx){
               console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
              
               var idEsame='';
             
               for(var i =0;i<ctx.parameters.esami.length;i++){
-//ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
+              //ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
                 if (ctx.parameters.esami[i]===paramEsame){
                   console.log('******** TROVATO ESAME IN PARAMS.ESAMI*******');
                   idEsame=ctx.parameters.id[i];
@@ -641,7 +660,7 @@ function callAVANEW(agent) {
               }
             }else{
             
-            }
+            }*/
 
           //  if (paramEsame===esameDC){   '5188667'
               console.log('sono dentro getInfoGenEsame con esame '+paramEsame);
@@ -670,7 +689,8 @@ function callAVANEW(agent) {
               
             
             });
-           /* } else{
+           /* COMMENTATO IN DATA 18/03/2019
+           } else{
               //per il momento economia aziendale
               controller.getEsame('291783','5188670').then((esame) => { 
                 var strTemp=''; 
@@ -700,7 +720,8 @@ function callAVANEW(agent) {
             }
            */
           break;
-            //******** DETTAGLIO DIRITTO COSTITUZIONALE  */
+          
+            //******** DETTAGLIO DIRITTO COSTITUZIONALE  '5188667'*/
             case 'getAnnoDirittoCostituzionale':
             controller.GetDettaglioEsame('291783','5188667', 'annoCorso').then((esame) => { 
               var strTemp=''; 
@@ -716,6 +737,27 @@ function callAVANEW(agent) {
 
           }).catch((error) => {
             console.log('Si è verificato errore in getDirittoCostituzionale: ' +error);
+            
+          
+          });
+            break;
+            //modifica del 18/03/2019
+            //getAnnoEsame GENERICO -> DINAMICO
+            case 'getAnnoEsame':
+            controller.GetDettaglioEsame('291783',idEsame, 'annoCorso').then((esame) => { 
+              var strTemp=''; 
+              console.log( '**************** dati del ANNO getAnnoEsame= ' + esame.annoCorso);
+      
+              strTemp +=  esame.annoCorso; 
+              var str=strOutput;
+              str=str.replace(/(@)/gi, strTemp);
+              strOutput=str;
+              agent.add(strOutput);
+              console.log('strOutput con replace in getAnnoEsame'+ strOutput);
+              resolve(agent);
+
+          }).catch((error) => {
+            console.log('Si è verificato errore in getAnnoEsame: ' +error);
             
           
           });
@@ -860,10 +902,11 @@ function callAVANEW(agent) {
         
         });
         break;
+            //18/03/2019 QUESTO DIVENTA OLD
             //******** ECONOMIA AZIENDALE  */ 
             //14/03/2019 da  5057985 a 5188670
             //**********  */getEconomiaAziendale 29/01/2019 generico
-            case 'getEconomiaAziendale':
+            /*case 'getEconomiaAziendale':
             controller.getEsame('291783','5188670').then((esame) => { 
               var strTemp=''; 
               console.log( '**************** dati del getEconomiaAziendale ******************');
@@ -890,7 +933,7 @@ function callAVANEW(agent) {
           
           });
             break;
-            
+            */
           //30/01/2019
           //5188670 getAnnoEconomia Aziendale
           case 'getAnnoEconomiaAziendale':
