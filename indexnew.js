@@ -443,7 +443,14 @@ function callAVANEW(agent) {
       switch (strRicerca) {
         case 'getLibretto':
           console.log('sono nel getLibretto');
-         
+          var aa=agent.context.get('contesto');
+          if (aa){
+            console.log('ho già il contesto');
+          }else{
+           //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['xxx','yyyy']}});
+           agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
+           console.log('scrivo il contesto');
+        }
           controller.getLibretto().then((libretto)=> {
             var strTemp='';
            
@@ -469,8 +476,8 @@ function callAVANEW(agent) {
             strOutput=str;
             agent.add(strOutput);
             console.log('strOutput con replace '+ strOutput);
-            //provo qui  prova del 18/03/2019 
-            agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
+            //provo qui  prova del 18/03/2019  FUNGE!!!
+            //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
             /********************************************************************************/ 
             resolve(agent);
           }).catch((error) => {
