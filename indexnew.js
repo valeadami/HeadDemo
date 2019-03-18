@@ -904,8 +904,9 @@ function callAVANEW(agent) {
         
         });
         break;
+        //COMMENTATO IN DATA 18/03/2019 diventa old
         //getTipoCorsoDirittoCostituzionale
-        case 'getTipoCorsoDirittoCostituzionale':
+        /*case 'getTipoCorsoDirittoCostituzionale':
           controller.getSegmento('291783','5188667').then((esame) => { 
             var strTemp=''; 
             console.log( '**************** dati del TIPO CORSO getTipoCorsoDirittoCostituzionale ');
@@ -920,6 +921,26 @@ function callAVANEW(agent) {
 
         }).catch((error) => {
           console.log('Si è verificato errore in getTipoCorsoDirittoCostituzionale: ' +error);
+          
+        
+        });
+        break;*/
+        //nuovo del 18/03/2019
+        case 'getTipoCorso':
+          controller.getSegmento('291783',idEsame).then((esame) => { 
+            var strTemp=''; 
+            console.log( '**************** dati del TIPO CORSO getTipoCorso ');
+    
+            strTemp +=  esame; //ritorna una stringa con LEZ
+            var str=strOutput;
+            str=str.replace(/(@)/gi, strTemp);
+            strOutput=str;
+            agent.add(strOutput);
+            console.log('strOutput con replace in getTipoCorso '+ strOutput);
+            resolve(agent);
+
+        }).catch((error) => {
+          console.log('Si è verificato errore in getTipoCorso: ' +error);
           
         
         });
