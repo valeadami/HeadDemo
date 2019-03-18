@@ -481,7 +481,14 @@ function callAVANEW(agent) {
             console.log('strOutput con replace '+ strOutput);
             //provo qui  prova del 18/03/2019  FUNGE!!!
             //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
-            aa.parameters.id=arIDS;
+            if (aa){
+
+            }else{
+              var bb=agent.context.get('contesto');
+              bb.parameters.id=arIDS;
+              console.log('inserito i nuovi params');
+            }
+            //aa.parameters.id=arIDS;
             /********************************************************************************/ 
             resolve(agent);
           }).catch((error) => {
