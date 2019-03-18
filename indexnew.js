@@ -722,7 +722,8 @@ function callAVANEW(agent) {
           break;
           
             //******** DETTAGLIO DIRITTO COSTITUZIONALE  '5188667'*/
-            case 'getAnnoDirittoCostituzionale':
+            // COMMENTATO IN DATA 18/03/2019 diventa old
+           /*case 'getAnnoDirittoCostituzionale':
             controller.GetDettaglioEsame('291783','5188667', 'annoCorso').then((esame) => { 
               var strTemp=''; 
               console.log( '**************** dati del ANNO getDirittoCostituzionale= ' + esame.annoCorso);
@@ -740,7 +741,7 @@ function callAVANEW(agent) {
             
           
           });
-            break;
+            break;*/
             //modifica del 18/03/2019
             //getAnnoEsame GENERICO -> DINAMICO
             case 'getAnnoEsame':
@@ -762,7 +763,8 @@ function callAVANEW(agent) {
           
           });
             break;
-            case 'getTipoEsameDirittoCostituzionale':
+              // COMMENTATO IN DATA 18/03/2019 diventa old
+           /* case 'getTipoEsameDirittoCostituzionale':
             controller.GetDettaglioEsame('291783','5188667', 'tipoEsaDes').then((esame) => { 
               var strTemp=''; 
               console.log( '**************** dati del TIPO getTipoEsameDirittoCostituzionale ' +esame.tipoEsaDes);
@@ -777,6 +779,26 @@ function callAVANEW(agent) {
 
           }).catch((error) => {
             console.log('Si è verificato errore in getTipoEsameDirittoCostituzionale: ' +error);
+            
+          
+          });
+            break;*/
+            //18/03/2019 nuovo
+            case 'getTipoEsame':
+            controller.GetDettaglioEsame('291783',idEsame, 'tipoEsaDes').then((esame) => { 
+              var strTemp=''; 
+              console.log( '**************** dati del TIPO getTipoEsame ' +esame.tipoEsaDes);
+      
+              strTemp +=  esame.tipoEsaDes; 
+              var str=strOutput;
+              str=str.replace(/(@)/gi, strTemp);
+              strOutput=str;
+              agent.add(strOutput);
+              console.log('strOutput con replace in getTipoEsame'+ strOutput);
+              resolve(agent);
+
+          }).catch((error) => {
+            console.log('Si è verificato errore in getTipoEsame: ' +error);
             
           
           });
