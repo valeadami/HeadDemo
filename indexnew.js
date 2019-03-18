@@ -470,7 +470,7 @@ function callAVANEW(agent) {
             agent.add(strOutput);
             console.log('strOutput con replace '+ strOutput);
             //provo qui  prova del 18/03/2019 
-            //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": arIDS }});
+            agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
             /********************************************************************************/ 
             resolve(agent);
           }).catch((error) => {
