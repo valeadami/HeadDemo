@@ -418,7 +418,7 @@ function callAVANEW(agent) {
     return new Promise((resolve, reject) => {
   
     let strRicerca='';
-    var arIDS=[];
+   
     let sessionId = agent.sessionId /*.split('/').pop()*/;
     console.log('dentro call ava il mio session id '+sessionId);
 //questo lo tengo perchè mi serve per recuperare la stringa dall'agente
@@ -443,6 +443,7 @@ function callAVANEW(agent) {
       switch (strRicerca) {
         case 'getLibretto':
           console.log('sono nel getLibretto');
+          var arIDS=[];
           var aa=agent.context.get('contesto');
           if (aa){
             console.log('ho già il contesto');
@@ -460,15 +461,15 @@ function callAVANEW(agent) {
               
               for(var i=0; i<libretto.length; i++){
                 //tolto 'esame di ' in data 29/01/2019 e aggiunti i campi per avere i dati come su EsseTre RigaLibretto
-                arIDS.push(libretto[i].adDes);
-                console.log('inserito in arIDS '+arIDS[i]);
+               
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
                 //********************* */prova del 18/03/2019 NON VEDE LA SESSIONE DI EXPRESS
                 // req.session.esami.push(libretto[i].adsceId +"_"+ libretto[i].adDes);
                 //****************************************************************** 
                 /**/
-
+                arIDS.push(libretto[i].adDes);
+                console.log('inserito in arIDS '+arIDS[i]);
               }
               
             }
@@ -480,7 +481,7 @@ function callAVANEW(agent) {
             console.log('strOutput con replace '+ strOutput);
             //provo qui  prova del 18/03/2019  FUNGE!!!
             //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": 'cazzo' }});
-           // aa.parameters.id=arIDS;
+            //aa.parameters.id=arIDS;
             /********************************************************************************/ 
             resolve(agent);
           }).catch((error) => {
