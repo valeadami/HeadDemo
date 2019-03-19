@@ -558,6 +558,7 @@ function callAVANEW(agent) {
         });
           break;
         //28/01/2019
+        //19/03/2019 resta così per il momento
         case 'getNumeroMatricola':
           controller.getCarriera('s262502').then((carriera)=> {
             var strTemp='';
@@ -933,12 +934,13 @@ function callAVANEW(agent) {
               break;
 
               //getVotoDirittoCostituzionale
-              case 'getVotoDirittoCostituzionale':
+              //19/03/2019 commentato diventa old
+             /* case 'getVotoDirittoCostituzionale':
               controller.GetDettaglioEsame('291783','5188667', 'esito.voto').then((esame) => { 
                 var strTemp=''; 
                 console.log( '**************** dati del esito.dataEsa getVotoDirittoCostituzionale ' +esame.esito.voto);
         
-                strTemp +=  esame.esito.voto; //Diritto Costituzionale è un corso dell'anno : 1
+                strTemp +=  esame.esito.voto;
                 var str=strOutput;
                 str=str.replace(/(@)/gi, strTemp);
                 strOutput=str;
@@ -951,7 +953,33 @@ function callAVANEW(agent) {
               
             
             });
+              break;*/
+              case 'getVotoEsame':
+              controller.GetDettaglioEsame('291783',idEsame, 'esito.voto').then((esame) => { 
+                var strTemp=''; 
+                console.log( '**************** dati del esito.dataEsa getVotoEsame ' +esame.esito.voto);
+                //19/03/2019
+                if (esame.esito.voto==''){
+                  strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
+                }else{
+                  strTemp +=  esame.esito.dataEsa; 
+                  var str=strOutput;
+                  str=str.replace(/(@)/gi, strTemp);
+                  strOutput=str;
+                }
+
+                
+                agent.add(strOutput);
+                console.log('strOutput con replace in getVotoEsame '+ strOutput);
+                resolve(agent);
+
+            }).catch((error) => {
+              console.log('Si è verificato errore in getVotoEsame: ' +error);
+              
+            
+            });
               break;
+
             //30/01/2019
             //19/03/2019 commentato, diventa old
           // getDocenteDirittoCostituzionale
@@ -1303,6 +1331,7 @@ function callAVANEW(agent) {
         });
           break;
           //MEDIA ARITMETICA
+          //19/03/2019 resta inalterata per il momento
           case 'getMediaComplessiva':
           controller.getMediaComplessiva('291783').then((media) => { 
             console.log('sono in getMediaComplessiva');
