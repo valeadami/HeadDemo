@@ -910,15 +910,17 @@ function callAVANEW(agent) {
               controller.GetDettaglioEsame('291783',idEsame, 'esito.dataEsa').then((esame) => { 
                 var strTemp=''; 
                 console.log( '**************** dati del esito.dataEsa getDataEsame' +esame.esito.dataEsa);
-        
-                strTemp +=  esame.esito.dataEsa; 
-                var str=strOutput;
-                str=str.replace(/(@)/gi, strTemp);
-                strOutput=str;
                 //SE MANCA ESAME RIMPIAZZA IL TESTO 19/03/2019
-                if (strOutput==''){
+                if (esame.esito.dataEsa==''){
                   strOutput="Purtroppo non hai ancora sostenuto l'esame di "+idEsame;
+                }else{
+                  strTemp +=  esame.esito.dataEsa; 
+                  var str=strOutput;
+                  str=str.replace(/(@)/gi, strTemp);
+                  strOutput=str;
                 }
+               
+                
                 agent.add(strOutput);
                 console.log('strOutput con replace in getDataEsame'+ strOutput);
                 resolve(agent);
