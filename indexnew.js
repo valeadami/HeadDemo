@@ -925,8 +925,9 @@ function callAVANEW(agent) {
             });
               break;
             //30/01/2019
+            //19/03/2019 commentato, diventa old
           // getDocenteDirittoCostituzionale
-          case 'getDocenteDirittoCostituzionale':
+          /*case 'getDocenteDirittoCostituzionale':
           controller.GetDocente('291783','5188667').then((esame) => { 
             var strTemp=''; 
             console.log( '**************** dati del DOCENTE getDocenteDirittoCostituzionale ');
@@ -944,7 +945,27 @@ function callAVANEW(agent) {
           
         
         });
-        break;
+        break;*/
+        //nuovo: 19/03/2019
+        case 'getDocenteEsame':
+        controller.GetDocente('291783',idEsame).then((esame) => { 
+          var strTemp=''; 
+          console.log( '**************** dati del DOCENTE getDocenteEsame ');
+  
+          strTemp +=  esame; //ritorna una stringa con cognome e nome del docente
+          var str=strOutput;
+          str=str.replace(/(@)/gi, strTemp);
+          strOutput=str;
+          agent.add(strOutput);
+          console.log('strOutput con replace in getDocenteEsame '+ strOutput);
+          resolve(agent);
+
+      }).catch((error) => {
+        console.log('Si è verificato errore in getDocenteEsame: ' +error);
+        
+      
+      });
+      break;
         //COMMENTATO IN DATA 18/03/2019 diventa old
         //getTipoCorsoDirittoCostituzionale
         /*case 'getTipoCorsoDirittoCostituzionale':
