@@ -1198,9 +1198,9 @@ function callAVANEW(agent) {
       
       });
         break;
-        //getCreditiUltimoAnno
+        //getCreditiUltimoAnno-> dal 2017 al 2018 19/03/2019
         case 'getCreditiUltimoAnno':
-        controller.getEsamiUltimoAnno('291783',2017).then((libretto) => { 
+        controller.getEsamiUltimoAnno('291783',2018).then((libretto) => { 
           console.log('sono in getCreditiUltimoAnno')
           var strTemp=''; 
           var conteggioCFU=0;
