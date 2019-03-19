@@ -536,6 +536,7 @@ function getEsamiUltimoAnno(matId,anno){ //matID, adsceId, param con param=annoC
           
         }).catch(function(err){
             console.log('***********ERRORE in getElencoEsamiUltimoAnno');
+            resolve(err);
         });
     
     }); 
