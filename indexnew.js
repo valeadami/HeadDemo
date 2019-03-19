@@ -1161,7 +1161,7 @@ function callAVANEW(agent) {
       //30/01/2019
       //getEsamiUltimoAnno ---> QUANTI ESAMI HO FATTO!!!
       case 'getEsamiUltimoAnno':
-      controller.getEsamiUltimoAnno('291783',2017).then((libretto) => { 
+      controller.getEsamiUltimoAnno('291783',2018).then((libretto) => { 
         console.log('sono in getEsamiUltimoAnno')
         var strTemp=''; 
         
