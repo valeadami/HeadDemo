@@ -489,7 +489,13 @@ function getElencoEsamiUltimoAnno(matId,anno){
                 if (response.statusCode==200){
                  
                     resolve(body); 
-                }  
+                }  else if (response.statusCode==404) {
+                    reject(error);
+                    console.log('errore 404 in getElencoEsamiUltimoAnno '+ error);
+                }else{
+                    reject(error);
+                    console.log('errore in getElencoEsamiUltimoAnno '+ error);
+                }
             }
     
         });
