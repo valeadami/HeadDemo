@@ -1244,7 +1244,7 @@ function callAVANEW(agent) {
         case 'getCreditiUltimoAnno':
         controller.getEsamiUltimoAnno('291783',2017).then((libretto) => { 
           console.log('sono in getCreditiUltimoAnno')
-          var strTemp=''; 
+          var strTemp='0'; 
           var conteggioCFU=0;
           if (Array.isArray(libretto)){
               
