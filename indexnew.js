@@ -1194,7 +1194,7 @@ function callAVANEW(agent) {
         resolve(agent);
       }).catch((error) => {
         console.log('Si è verificato errore : ' +error);
-        resolve('si è verificato errore '+error);
+        //resolve('si è verificato errore '+error);
       
       });
         break;
