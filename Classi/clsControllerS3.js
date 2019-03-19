@@ -471,7 +471,7 @@ function getElencoEsamiUltimoAnno(matId,anno){
     return new Promise(function(resolve, reject) {
         var options = { 
             method: 'GET',
-            url: strUrlGetSingoloEsame  + matId +'/righe/' + '?esito.aaSupId>=' + anno,
+            url: strUrlGetSingoloEsame  + matId +'/righe/' + '?esito.aaSupId==' + anno,
             headers: 
                 { 
                     'cache-control': 'no-cache',
