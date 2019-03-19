@@ -959,7 +959,7 @@ function callAVANEW(agent) {
                 var strTemp=''; 
                 console.log( '**************** dati del  getVotoEsame esame.esito.voto ' +esame.esito.voto);
                 //19/03/2019
-                if (typeof esame.esito.voto==='null' || typeof esame.esito.voto==='undefined' || esame.esito.voto==='' ){
+                if ( esame.esito.voto===null || esame.esito.voto==='' ){
                   strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
                 }else{
                   strTemp +=  esame.esito.voto; 
