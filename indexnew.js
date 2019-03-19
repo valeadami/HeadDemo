@@ -912,7 +912,7 @@ function callAVANEW(agent) {
                 console.log( '**************** dati del esito.dataEsa getDataEsame' +esame.esito.dataEsa);
                 //SE MANCA ESAME RIMPIAZZA IL TESTO 19/03/2019
                 if (esame.esito.dataEsa==''){
-                  strOutput="Purtroppo non hai ancora sostenuto l'esame di "+idEsame;
+                  strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
                 }else{
                   strTemp +=  esame.esito.dataEsa; 
                   var str=strOutput;
