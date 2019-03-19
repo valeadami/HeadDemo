@@ -915,6 +915,10 @@ function callAVANEW(agent) {
                 var str=strOutput;
                 str=str.replace(/(@)/gi, strTemp);
                 strOutput=str;
+                //SE MANCA ESAME RIMPIAZZA IL TESTO 19/03/2019
+                if (strOutput==''){
+                  strOutput="Purtroppo non hai ancora sostenuto l'esame di "+idEsame;
+                }
                 agent.add(strOutput);
                 console.log('strOutput con replace in getDataEsame'+ strOutput);
                 resolve(agent);
