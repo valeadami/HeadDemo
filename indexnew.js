@@ -1163,7 +1163,7 @@ function callAVANEW(agent) {
       case 'getEsamiUltimoAnno':
       controller.getEsamiUltimoAnno('291783',2018).then((libretto) => { 
         console.log('sono in getEsamiUltimoAnno')
-        var strTemp=''; 
+        var strTemp='0'; 
         
         if (Array.isArray(libretto)){
           /*   

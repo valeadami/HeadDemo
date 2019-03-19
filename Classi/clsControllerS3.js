@@ -534,10 +534,10 @@ function getEsamiUltimoAnno(matId,anno){ //matID, adsceId, param con param=annoC
                 resolve(libretto);
             }
           
-        })/*.catch(function(err){
+        }).catch(function(err){
             console.log('***********ERRORE in getElencoEsamiUltimoAnno');
-            //resolve('0');
-        });*/
+            resolve('0');
+        });
     
     }); 
 }
