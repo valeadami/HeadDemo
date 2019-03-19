@@ -804,7 +804,8 @@ function callAVANEW(agent) {
           });
             break;
             //peso
-            case 'getCreditoFormativoDirittoCostituzionale':
+            //19/03/2019 commentato diventa old
+           /* case 'getCreditoFormativoDirittoCostituzionale':
             controller.GetDettaglioEsame('291783','5188667', 'peso').then((esame) => { 
               var strTemp=''; 
               console.log( '**************** dati del peso getCreditoFormativoDirittoCostituzionale' +esame.peso);
@@ -822,7 +823,27 @@ function callAVANEW(agent) {
             
           
           });
-            break;
+            break;*/
+            //nuovo 19/03/2019
+            case 'getCreditoFormativoEsame':
+            controller.GetDettaglioEsame('291783',idEsame, 'peso').then((esame) => { 
+              var strTemp=''; 
+              console.log( '**************** dati del peso getCreditoFormativoEsame' +esame.peso);
+      
+              strTemp +=  esame.peso; 
+              var str=strOutput;
+              str=str.replace(/(@)/gi, strTemp);
+              strOutput=str;
+              agent.add(strOutput);
+              console.log('strOutput con replace in getCreditoFormativoEsame'+ strOutput);
+              resolve(agent);
+
+          }).catch((error) => {
+            console.log('Si è verificato errore in getCreditoFormativoEsame: ' +error);
+            
+          
+          });
+          break;
             //anno di frequenza diventato old in data 19/03/2019
             /*case 'getAnnoFrequentatoDirittoCostituzionale':
             controller.GetDettaglioEsame('291783','5188667', 'aaFreqId').then((esame) => { 
