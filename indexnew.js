@@ -823,8 +823,8 @@ function callAVANEW(agent) {
           
           });
             break;
-            //anno di frequenza
-            case 'getAnnoFrequentatoDirittoCostituzionale':
+            //anno di frequenza diventato old in data 19/03/2019
+            /*case 'getAnnoFrequentatoDirittoCostituzionale':
             controller.GetDettaglioEsame('291783','5188667', 'aaFreqId').then((esame) => { 
               var strTemp=''; 
               console.log( '**************** dati del ANNO DI FREQUENZA getAnnoFrequentatoDirittoCostituzionale' +esame.aaFreqId);
@@ -835,6 +835,26 @@ function callAVANEW(agent) {
               strOutput=str;
               agent.add(strOutput);
               console.log('strOutput con replace in getAnnoFrequentatoDirittoCostituzionale'+ strOutput);
+              resolve(agent);
+
+          }).catch((error) => {
+            console.log('Si è verificato errore in getAnnoFrequentatoDirittoCostituzionale: ' +error);
+            
+          
+          });
+            break;*/
+            //nuovo del 19/03/2019
+            case 'getAnnoFrequentatoEsame':
+            controller.GetDettaglioEsame('291783',idEsame, 'aaFreqId').then((esame) => { 
+              var strTemp=''; 
+              console.log( '**************** dati del ANNO DI FREQUENZA getAnnoFrequentatoEsame' +esame.aaFreqId);
+      
+              strTemp +=  esame.aaFreqId;
+              var str=strOutput;
+              str=str.replace(/(@)/gi, strTemp);
+              strOutput=str;
+              agent.add(strOutput);
+              console.log('strOutput con replace in getAnnoFrequentatoEsame'+ strOutput);
               resolve(agent);
 
           }).catch((error) => {
