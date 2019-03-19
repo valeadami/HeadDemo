@@ -885,7 +885,8 @@ function callAVANEW(agent) {
           });
             break;
               //getDataEsameFattoDirittoCostituzionale esito.dataEsa
-              case 'getDataEsameFattoDirittoCostituzionale':
+              //19/03/2019 commentato diventa old
+             /* case 'getDataEsameFattoDirittoCostituzionale':
               controller.GetDettaglioEsame('291783','5188667', 'esito.dataEsa').then((esame) => { 
                 var strTemp=''; 
                 console.log( '**************** dati del esito.dataEsa getDataEsameFattoDirittoCostituzionale' +esame.esito.dataEsa);
@@ -903,7 +904,28 @@ function callAVANEW(agent) {
               
             
             });
+              break;*/
+              //nuovo del 19/03/2019
+              case 'getDataEsame':
+              controller.GetDettaglioEsame('291783',idEsame, 'esito.dataEsa').then((esame) => { 
+                var strTemp=''; 
+                console.log( '**************** dati del esito.dataEsa getDataEsame' +esame.esito.dataEsa);
+        
+                strTemp +=  esame.esito.dataEsa; 
+                var str=strOutput;
+                str=str.replace(/(@)/gi, strTemp);
+                strOutput=str;
+                agent.add(strOutput);
+                console.log('strOutput con replace in getDataEsame'+ strOutput);
+                resolve(agent);
+
+            }).catch((error) => {
+              console.log('Si è verificato errore in getDataEsame: ' +error);
+              
+            
+            });
               break;
+
               //getVotoDirittoCostituzionale
               case 'getVotoDirittoCostituzionale':
               controller.GetDettaglioEsame('291783','5188667', 'esito.voto').then((esame) => { 
