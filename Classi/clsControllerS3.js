@@ -466,11 +466,12 @@ function getSegmento(matId,adsceId){ //matID, adsceId, param con param=annoCorso
 //30/01/2019
 //ESAMI SOSTENUTI NEL 2018 PERTINENTI AL 2017 https://units.esse3.pp.cineca.it/e3rest/api/libretto-service-v1/libretti/286879/righe/?filter=esito.aaSupId%3D%3D2017
 //getEsamiUltimoAnno(anno)
+//modifica del 19/03/2019 da ?filter=esito.aaSupId%3D%3D' a ?esito.aaSupId>=
 function getElencoEsamiUltimoAnno(matId,anno){ 
     return new Promise(function(resolve, reject) {
         var options = { 
             method: 'GET',
-            url: strUrlGetSingoloEsame  + matId +'/righe/' + '?filter=esito.aaSupId%3D%3D' + anno,
+            url: strUrlGetSingoloEsame  + matId +'/righe/' + '?esito.aaSupId>=' + anno,
             headers: 
                 { 
                     'cache-control': 'no-cache',
