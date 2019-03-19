@@ -957,9 +957,9 @@ function callAVANEW(agent) {
               case 'getVotoEsame':
               controller.GetDettaglioEsame('291783',idEsame, 'esito.voto').then((esame) => { 
                 var strTemp=''; 
-                console.log( '**************** dati del esito.dataEsa getVotoEsame ' +esame.esito.voto);
+                console.log( '**************** dati del  getVotoEsame esame.esito.voto ' +esame.esito.voto);
                 //19/03/2019
-                if (typeof esame.esito.voto=='null' || typeof esame.esito.voto=='undefined' || esame.esito.voto==''){
+                if (typeof esame.esito.voto==='null' || typeof esame.esito.voto==='undefined' || esame.esito.voto==='' ){
                   strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
                 }else{
                   strTemp +=  esame.esito.voto; 
