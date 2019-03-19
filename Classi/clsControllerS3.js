@@ -471,7 +471,7 @@ function getElencoEsamiUltimoAnno(matId,anno){
     return new Promise(function(resolve, reject) {
         var options = { 
             method: 'GET',
-            url: strUrlGetSingoloEsame  + matId +'/righe/' + '?filter=esito.aaSupId==' + anno,
+            url: strUrlGetSingoloEsame  + matId +'/righe/' + '?esito.aaSupId==' + anno,
             headers: 
                 { 
                     'cache-control': 'no-cache',
@@ -483,18 +483,21 @@ function getElencoEsamiUltimoAnno(matId,anno){
         request(options, function (error, response, body) {
             console.log('url di getElencoEsamiUltimoAnno '+ options.url);
             if (error) {
-                reject(error);
+                
                 console.log('errore in getElencoEsamiUltimoAnno '+ error);
+                reject(error);
             } else {
                 if (response.statusCode==200){
                  
                     resolve(body); 
                 }  else if (response.statusCode==404) {
-                    reject(error);
+                    
                     console.log('errore 404 in getElencoEsamiUltimoAnno '+ error);
-                }else{
                     reject(error);
+                }else{
+                    
                     console.log('errore in getElencoEsamiUltimoAnno '+ error);
+                    reject(error);
                 }
             }
     
