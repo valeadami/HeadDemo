@@ -1257,7 +1257,7 @@ function callAVANEW(agent) {
                //li setto tutti, intanto recupero userid e matricola
                agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
               // agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
-               agent.add(strOutput);
+               //agent.add(strOutput);
                //resolve(agent);/**/
                 
             }).catch((error) => {
