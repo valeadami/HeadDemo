@@ -1257,8 +1257,8 @@ function callAVANEW(agent) {
                //li setto tutti, intanto recupero userid e matricola
                agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
               // agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
-               agent.add(strOutput);
-               resolve(agent);/**/
+              /* agent.add(strOutput);
+               resolve(agent);*/
                 
             }).catch((error) => {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
