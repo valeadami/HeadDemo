@@ -1245,7 +1245,7 @@ function callAVANEW(agent) {
                var uID=stud.userId;
                console.log('uID = '+uID);
                var matricolaID=stud.trattiCarriera[0].matId;
-               console.log('matricolaId ='+matricolaId);
+               console.log('matricolaId ='+matricolaID);
                agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
                agent.add(strOutput);
                resolve(agent);
