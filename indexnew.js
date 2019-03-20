@@ -1255,14 +1255,14 @@ function callAVANEW(agent) {
                //li setto tutti, intanto recupero userid e matricola
                agent.context.set({ name: 'contesto', lifespan: 50, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
               // agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
-              /* agent.add(strOutput);
-               resolve(agent);*/
+               agent.add(strOutput);
+               resolve(agent);/**/
                 
             }).catch((error) => {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
             });
             //recupero dati del libretto
-           /* controller.getLibretto().then((libretto)=> {
+            controller.getLibretto().then((libretto)=> {
               
               if (Array.isArray(libretto)){
                 console.log('sono in getInizializzazione getLibretto');
@@ -1275,14 +1275,15 @@ function callAVANEW(agent) {
                 }
                 //qui sovrascrivo gli array vuoti
                agent.context.set({ name: 'contestoPD', lifespan: 50, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
+               agent.add(strOutput);
+               resolve(agent); 
+             
               }
               }).catch((error) => {
                 console.log('Si è verificato errore in getInizializzazione -getLibretto: ' +error);
               });
-          
-          */
-            agent.add(strOutput);
-            resolve(agent); 
+           
+            
           break;
           //20/03/2019 fallback con intent Fallback to Panloquacity #nav
           case 'getRispostaPanloquacity':
