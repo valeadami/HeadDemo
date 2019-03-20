@@ -1254,9 +1254,31 @@ function callAVANEW(agent) {
                console.log('uID = '+uID);
                matricolaID=stud.trattiCarriera[0].matId;
                console.log('matricolaId ='+matricolaID);
+               //prova *******************
+                  controller.getLibretto().then((libretto)=> {
+                  
+                    if (Array.isArray(libretto)){
+                      console.log('sono in getInizializzazione getLibretto');
+                      for(var i=0; i<libretto.length; i++){
+                      
+                        arIDS.push(libretto[i].adsceId);
+                        console.log('->inserito in arIDS '+arIDS[i]);
+                        arEsami.push(libretto[i].adDes);
+                        console.log('->inserito in arEsami '+arEsami[i]);
+                      }
+                    
+                    agent.context.set({ name: 'contestolibretto', lifespan: 20, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
+                    agent.add(strOutput);
+                    resolve(agent); 
+                  
+                    }
+                    }).catch((error) => {
+                      console.log('Si è verificato errore in getInizializzazione -getLibretto: ' +error);
+                    });
+
                //li setto tutti, intanto recupero userid e matricola
-               agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
               // agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
+             
               /* agent.add(strOutput);
                resolve(agent);*/
                 
@@ -1264,7 +1286,7 @@ function callAVANEW(agent) {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
             });
             //recupero dati del libretto
-            controller.getLibretto().then((libretto)=> {
+           /* controller.getLibretto().then((libretto)=> {
               
               if (Array.isArray(libretto)){
                 console.log('sono in getInizializzazione getLibretto');
@@ -1275,7 +1297,7 @@ function callAVANEW(agent) {
                   arEsami.push(libretto[i].adDes);
                   console.log('->inserito in arEsami '+arEsami[i]);
                 }
-                //qui sovrascrivo gli array vuoti
+               
                agent.context.set({ name: 'contestolibretto', lifespan: 20, parameters: { "adsceId":arIDS, "esami":arEsami}});
                agent.add(strOutput);
                resolve(agent); 
@@ -1283,7 +1305,7 @@ function callAVANEW(agent) {
               }
               }).catch((error) => {
                 console.log('Si è verificato errore in getInizializzazione -getLibretto: ' +error);
-              });
+              });*/
            
             
           break;
