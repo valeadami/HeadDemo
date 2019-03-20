@@ -448,16 +448,18 @@ function callAVANEW(agent) {
       console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
       console.log('LEGGO DAL CONTESTO UID '+ctx.parameters.userId);
       var idEsame='';
-    
-      for(var i =0;i<ctx.parameters.esami.length;i++){
-      //ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
-        if (ctx.parameters.esami[i]===paramEsame){
-          console.log('******** TROVATO ESAME IN PARAMS.ESAMI*******');
-          idEsame=ctx.parameters.id[i];
-          console.log('************ ID DI ESAME = '+idEsame);
-          break;
-        }
+      if (ctx.parameters.esami){
+        for(var i =0;i<ctx.parameters.esami.length;i++){
+          //ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
+            if (ctx.parameters.esami[i]===paramEsame){
+              console.log('******** TROVATO ESAME IN PARAMS.ESAMI*******');
+              idEsame=ctx.parameters.id[i];
+              console.log('************ ID DI ESAME = '+idEsame);
+              break;
+            }
+          }
       }
+      
     }else{
     //Da gestire il caso in cui il contesto non è presente
     }
