@@ -1274,7 +1274,7 @@ function callAVANEW(agent) {
                   console.log('->inserito in arEsami '+arEsami[i]);
                 }
                 //qui sovrascrivo gli array vuoti
-                agent.context.set({ name: 'contesto', lifespan: 50, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
+              //  agent.context.set({ name: 'contestoPD', lifespan: 50, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
               }
               }).catch((error) => {
                 console.log('Si è verificato errore in getInizializzazione -getLibretto: ' +error);
