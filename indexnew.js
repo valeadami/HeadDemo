@@ -1237,7 +1237,8 @@ function callAVANEW(agent) {
               controller.doLogin().then((stud) => { 
                console.log('sono in getInizializzazione');
                console.log('questo il valore di studente '+ JSON.stringify(stud));
-               var uID=stud.user.userId;
+               var uID=stud.userId;
+               console.log('uID = '+uID);
                //var matricolaId=stud.user.trattiCarriera[0].matId;
                agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID}});
                agent.add(strOutput);
