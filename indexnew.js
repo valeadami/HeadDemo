@@ -444,7 +444,7 @@ function callAVANEW(agent) {
     }
     //recupero la variabile legata al contesto
     var ctx=agent.context.get('contesto'); //per utente
-    var ctxLib=agent.context.get('contestoLibretto');
+    var ctxLib=agent.context.get('contestolibretto');
     if (ctx){
       console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
       console.log('LEGGO DAL CONTESTO UID '+ctx.parameters.userId);
@@ -1255,7 +1255,7 @@ function callAVANEW(agent) {
                matricolaID=stud.trattiCarriera[0].matId;
                console.log('matricolaId ='+matricolaID);
                //li setto tutti, intanto recupero userid e matricola
-               agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
+               agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "userId": uID, "matId":matricolaID}});
               // agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
                //agent.add(strOutput);
                //resolve(agent);/**/
@@ -1276,7 +1276,7 @@ function callAVANEW(agent) {
                   console.log('->inserito in arEsami '+arEsami[i]);
                 }
                 //qui sovrascrivo gli array vuoti
-               agent.context.set({ name: 'contestoLibretto', lifespan: 5, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
+               agent.context.set({ name: 'contestolibretto', lifespan: 5, parameters: { "adsceId":arIDS, "esami":arEsami}});
                agent.add(strOutput);
                resolve(agent); 
              
