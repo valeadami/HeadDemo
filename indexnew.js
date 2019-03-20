@@ -470,16 +470,17 @@ function callAVANEW(agent) {
       switch (strRicerca) {
         case 'getLibretto':
           console.log('sono nel getLibretto');
-          var arIDS=[];
+          //commentato in data 20/03/2019 dopo getInizializzazione
+         /* var arIDS=[];
           var arEsami=[];
-          //var ctx=agent.context.get('contesto');
+         
           if (ctx){
             console.log('ho già il contesto');
           }else{
-           //agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "id": ['xxx','yyyy']}});
+           
            agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "id": ['prova'] ,"esami" :['esame']}});
            console.log('scrivo il contesto in getLibretto ');
-        }
+        }*/
           controller.getLibretto().then((libretto)=> {
             var strTemp='';
            
@@ -488,14 +489,14 @@ function callAVANEW(agent) {
             if (Array.isArray(libretto)){
               
               for(var i=0; i<libretto.length; i++){
-                //tolto 'esame di ' in data 29/01/2019 e aggiunti i campi per avere i dati come su EsseTre RigaLibretto
-                //prova del 18/03/2019
                 
-                arIDS.push(libretto[i].adsceId);
+                //prova del 18/03/2019 e commentato poi in data 20/03/2019 dopo getInizializzazione
+                
+                /*arIDS.push(libretto[i].adsceId);
                 console.log('inserito in arIDS '+arIDS[i]);
                 arEsami.push(libretto[i].adDes);
                 console.log('inserito in arEsami '+arEsami[i]);
-
+                */
                 strTemp+=  libretto[i].adDes+ ', frequentato  nell \'anno ' +libretto[i].aaFreqId +', anno di corso ' +
                 libretto[i].annoCorso + '\n';
     
@@ -508,10 +509,10 @@ function callAVANEW(agent) {
             strOutput=str;
             agent.add(strOutput);
             console.log('strOutput con replace '+ strOutput);
-            //provo qui  prova del 18/03/2019  FUNGE!!!
-            ctx=agent.context.get('contesto');
+            //provo qui  prova del 18/03/2019  FUNGE!!! commentato in data 20/03/2019 dopo getInizializzazione
+           /* ctx=agent.context.get('contesto');
             ctx.parameters.id=arIDS;
-            ctx.parameters.esami=arEsami;
+            ctx.parameters.esami=arEsami;*/
             /********************************************************************************/ 
             resolve(agent);
           }).catch((error) => {
@@ -650,7 +651,6 @@ function callAVANEW(agent) {
             break;
             */
             /****************** NUOVO : GESTIONE DINAMICA ESAMI 15/03/2019 E 18/03/2019 **/
-            case 'getInfoGenEsame':
             
             //nuovo del 18/03/2019
 
@@ -674,6 +674,7 @@ function callAVANEW(agent) {
             }*/
 
           //  if (paramEsame===esameDC){   '5188667'
+          case 'getInfoGenEsame':
               console.log('sono dentro getInfoGenEsame con esame '+paramEsame);
               controller.getEsame('291783',idEsame).then((esame) => { 
                 var strTemp=''; 
@@ -692,14 +693,15 @@ function callAVANEW(agent) {
                 str=str.replace(/(@)/gi, strTemp);
                 strOutput=str;
                 agent.add(strOutput);
-                console.log('strOutput con replace in OLDgetDirittoCostituzionale'+ strOutput);
+                console.log('strOutput con replace in getInfoGenEsame'+ strOutput);
                 resolve(agent);
   
             }).catch((error) => {
-              console.log('Si è verificato errore in OLDgetDirittoCostituzionale: ' +error);
+              console.log('Si è verificato errore in getInfoGenEsame: ' +error);
               
             
             });
+            break;
            /* COMMENTATO IN DATA 18/03/2019
            } else{
               //per il momento economia aziendale
@@ -730,7 +732,7 @@ function callAVANEW(agent) {
             }); 
             }
            */
-          break;
+          
           
             //******** DETTAGLIO DIRITTO COSTITUZIONALE  '5188667'*/
             // COMMENTATO IN DATA 18/03/2019 diventa old
@@ -890,7 +892,7 @@ function callAVANEW(agent) {
               resolve(agent);
 
           }).catch((error) => {
-            console.log('Si è verificato errore in getAnnoFrequentatoDirittoCostituzionale: ' +error);
+            console.log('Si è verificato errore in getAnnoFrequentatoEsame: ' +error);
             
           
           });
@@ -1144,7 +1146,7 @@ function callAVANEW(agent) {
         //agent.setContext({ name: 'libretto', lifespan: 5, parameters: { matID: studente.trattiCarriera[0].matId }});
         resolve(agent);
       }).catch((error) => {
-        console.log('Si è verificato errore : ' +error);
+        console.log('Si è verificato errore in getEsamiUltimoAnno: ' +error);
         //resolve('si è verificato errore '+error);
       
       });
@@ -1178,7 +1180,7 @@ function callAVANEW(agent) {
           //agent.setContext({ name: 'libretto', lifespan: 5, parameters: { matID: studente.trattiCarriera[0].matId }});
           resolve(agent);
         }).catch((error) => {
-          console.log('Si è verificato errore : ' +error);
+          console.log('Si è verificato errore in getCreditiUltimoAnno : ' +error);
           
         
         });
@@ -1205,7 +1207,7 @@ function callAVANEW(agent) {
                 //agent.setContext({ name: 'libretto', lifespan: 5, parameters: { matID: studente.trattiCarriera[0].matId }});
                 resolve(agent);
             }).catch((error) => {
-              console.log('Si è verificato errore : ' +error);
+              console.log('Si è verificato errore in getMediaComplessiva: ' +error);
               
           
             });
@@ -1239,21 +1241,45 @@ function callAVANEW(agent) {
           //Salvo tutto nel contesto
           case 'getInizializzazione':
               //faccio login con utente di test
+              var uID=''; //userId
+              var matricolaID=''; //matId
+              var arIDS=[]; //adsceId degli esami del libretto
+              var arEsami=[]; //descrizioni degli esami del libretto
               controller.doLogin().then((stud) => { 
                console.log('sono in getInizializzazione');
                console.log('questo il valore di studente '+ JSON.stringify(stud));
-               var uID=stud.userId;
+               uID=stud.userId;
                console.log('uID = '+uID);
-               var matricolaID=stud.trattiCarriera[0].matId;
+               matricolaID=stud.trattiCarriera[0].matId;
                console.log('matricolaId ='+matricolaID);
-               agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
+               /*agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
                agent.add(strOutput);
                resolve(agent);
-                
+                */
             }).catch((error) => {
-                  console.log('Si è verificato errore in getInizializzazione: ' +error);
+                  console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
             });
-    
+            
+            controller.getLibretto().then((libretto)=> {
+
+              if (Array.isArray(libretto)){
+                
+                for(var i=0; i<libretto.length; i++){
+                 
+                  arIDS.push(libretto[i].adsceId);
+                  console.log('inserito in arIDS '+arIDS[i]);
+                  arEsami.push(libretto[i].adDes);
+                  console.log('inserito in arEsami '+arEsami[i]);
+                }
+                
+              }
+              }).catch((error) => {
+                console.log('Si è verificato errore in getInizializzazione -getLibretto: ' +error);
+              });
+            //fatto tutto setto nel contesto
+            agent.context.set({ name: 'contesto', lifespan: 50, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
+            agent.add(strOutput);
+            resolve(agent);
           break;
           //20/03/2019 fallback con intent Fallback to Panloquacity #nav
           case 'getRispostaPanloquacity':
