@@ -760,7 +760,7 @@ function callAVANEW(agent) {
             //modifica del 18/03/2019
             //getAnnoEsame GENERICO -> DINAMICO
             case 'getAnnoEsame':
-            controller.GetDettaglioEsame('matId',idEsame, 'annoCorso').then((esame) => { 
+            controller.GetDettaglioEsame(matId,idEsame, 'annoCorso').then((esame) => { 
               var strTemp=''; 
               console.log( '**************** dati del ANNO getAnnoEsame= ' + esame.annoCorso);
       
@@ -800,7 +800,7 @@ function callAVANEW(agent) {
             break;*/
             //18/03/2019 nuovo
             case 'getTipoEsame':
-            controller.GetDettaglioEsame('matId',idEsame, 'tipoEsaDes').then((esame) => { 
+            controller.GetDettaglioEsame(matId,idEsame, 'tipoEsaDes').then((esame) => { 
               var strTemp=''; 
               console.log( '**************** dati del TIPO getTipoEsame ' +esame.tipoEsaDes);
       
@@ -841,7 +841,7 @@ function callAVANEW(agent) {
             break;*/
             //nuovo 19/03/2019
             case 'getCreditoFormativoEsame':
-            controller.GetDettaglioEsame('matId',idEsame, 'peso').then((esame) => { 
+            controller.GetDettaglioEsame(matId,idEsame, 'peso').then((esame) => { 
               var strTemp=''; 
               console.log( '**************** dati del peso getCreditoFormativoEsame' +esame.peso);
       
@@ -881,7 +881,7 @@ function callAVANEW(agent) {
             break;*/
             //nuovo del 19/03/2019
             case 'getAnnoFrequentatoEsame':
-            controller.GetDettaglioEsame('matId',idEsame, 'aaFreqId').then((esame) => { 
+            controller.GetDettaglioEsame(matId,idEsame, 'aaFreqId').then((esame) => { 
               var strTemp=''; 
               console.log( '**************** dati del ANNO DI FREQUENZA getAnnoFrequentatoEsame' +esame.aaFreqId);
       
@@ -922,7 +922,7 @@ function callAVANEW(agent) {
               break;*/
               //nuovo del 19/03/2019
               case 'getDataEsame':
-              controller.GetDettaglioEsame('matId',idEsame, 'esito.dataEsa').then((esame) => { 
+              controller.GetDettaglioEsame(matId,idEsame, 'esito.dataEsa').then((esame) => { 
                 var strTemp=''; 
                 console.log( '**************** dati del esito.dataEsa getDataEsame' +esame.esito.dataEsa);
                 //SE MANCA ESAME RIMPIAZZA IL TESTO 19/03/2019
@@ -969,7 +969,7 @@ function callAVANEW(agent) {
             });
               break;*/
               case 'getVotoEsame':
-              controller.GetDettaglioEsame('matId',idEsame, 'esito.voto').then((esame) => { 
+              controller.GetDettaglioEsame(matId,idEsame, 'esito.voto').then((esame) => { 
                 var strTemp=''; 
                 console.log( '**************** dati del  getVotoEsame esame.esito.voto ' +esame.esito.voto);
                 //19/03/2019
@@ -1018,7 +1018,7 @@ function callAVANEW(agent) {
         break;*/
         //nuovo: 19/03/2019
         case 'getDocenteEsame':
-        controller.GetDocente('matId',idEsame).then((esame) => { 
+        controller.GetDocente(matId,idEsame).then((esame) => { 
           var strTemp=''; 
           console.log( '**************** dati del DOCENTE getDocenteEsame ');
   
@@ -1059,7 +1059,7 @@ function callAVANEW(agent) {
         break;*/
         //nuovo del 18/03/2019
         case 'getTipoCorso':
-          controller.getSegmento('matId',idEsame).then((esame) => { 
+          controller.getSegmento(matId,idEsame).then((esame) => { 
             var strTemp=''; 
             console.log( '**************** dati del TIPO CORSO getTipoCorso ');
     
@@ -1116,7 +1116,7 @@ function callAVANEW(agent) {
       //30/01/2019
       //getEsamiUltimoAnno ---> QUANTI ESAMI HO FATTO!!!
       case 'getEsamiUltimoAnno':
-      controller.getEsamiUltimoAnno('matId',2018).then((libretto) => { 
+      controller.getEsamiUltimoAnno(matId,2018).then((libretto) => { 
         console.log('sono in getEsamiUltimoAnno')
         var strTemp='0'; 
         
@@ -1155,7 +1155,7 @@ function callAVANEW(agent) {
         break;
         //getCreditiUltimoAnno-> dal 2017 al 2018 19/03/2019
         case 'getCreditiUltimoAnno':
-        controller.getEsamiUltimoAnno('matId',2017).then((libretto) => { 
+        controller.getEsamiUltimoAnno(matId,2017).then((libretto) => { 
           console.log('sono in getCreditiUltimoAnno')
           var strTemp='0'; 
           var conteggioCFU=0;
@@ -1190,7 +1190,7 @@ function callAVANEW(agent) {
           //MEDIA ARITMETICA
           //19/03/2019 resta inalterata per il momento
           case 'getMediaComplessiva':
-          controller.getMediaComplessiva('matId').then((media) => { 
+          controller.getMediaComplessiva(matId).then((media) => { 
             console.log('sono in getMediaComplessiva');
               strTemp=''; 
             
