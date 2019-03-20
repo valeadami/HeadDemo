@@ -1256,7 +1256,7 @@ function callAVANEW(agent) {
                agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
               // agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
                agent.add(strOutput);
-               resolve(agent);/**/
+               //resolve(agent);/**/
                 
             }).catch((error) => {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
