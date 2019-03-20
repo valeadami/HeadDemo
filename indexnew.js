@@ -443,29 +443,31 @@ function callAVANEW(agent) {
       console.log('in callAvanew ho esame '+ paramEsame);
     }
     //recupero la variabile legata al contesto
-    var ctx=agent.context.get('contesto');
+    var ctx=agent.context.get('contesto'); //per utente
+    var ctxLib=agent.context.get('contestoLibretto');
     if (ctx){
       console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
       console.log('LEGGO DAL CONTESTO UID '+ctx.parameters.userId);
-      var idEsame='';
+    
       var userId=ctx.parameters.userId;
       var matId=ctx.parameters.matId;
       console.log('LEGGO DAL CONTESTO matricola ID ='+matId);
-      if (ctx.parameters.esami){
-        for(var i =0;i<ctx.parameters.esami.length;i++){
+      
+    }
+    if (ctxLib){
+      if (ctxLib.parameters.esami){
+        var idEsame='';
+        for(var i =0;i<ctxLib.parameters.esami.length;i++){
           //ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
-            if (ctx.parameters.esami[i]===paramEsame){
-              console.log('******** TROVATO ESAME IN PARAMS.ESAMI*******');
-              idEsame=ctx.parameters.adsceId[i];
+            if (ctxLib.parameters.esami[i]===paramEsame){
+              console.log('******** TROVATO ESAME IN CTXLIB ESAMI*******');
+              idEsame=ctxLib.parameters.adsceId[i];
               console.log('************ ID DI ESAME = '+idEsame);
               break;
             }
           }
       }
-      
-    }else{
-    //Da gestire il caso in cui il contesto non è presente
-    }
+  }
     //IN BASE AL COMANDO ASSOCIATO ALL'INTENT ESEGUO AZIONE SU ESSETRE
       switch (strRicerca) {
         case 'getLibretto':
