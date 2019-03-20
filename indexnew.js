@@ -456,7 +456,7 @@ function callAVANEW(agent) {
           //ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
             if (ctx.parameters.esami[i]===paramEsame){
               console.log('******** TROVATO ESAME IN PARAMS.ESAMI*******');
-              idEsame=ctx.parameters.id[i];
+              idEsame=ctx.parameters.adsceId[i];
               console.log('************ ID DI ESAME = '+idEsame);
               break;
             }
@@ -1256,7 +1256,7 @@ function callAVANEW(agent) {
                agent.context.set({ name: 'contesto', lifespan: 5, parameters: { "userId": uID, "matId":matricolaID, "adsceId":arIDS, "esami":arEsami}});
               // agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
                agent.add(strOutput);
-               resolve(agent);/**/
+              // resolve(agent);/**/
                 
             }).catch((error) => {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
