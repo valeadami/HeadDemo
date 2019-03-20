@@ -448,6 +448,9 @@ function callAVANEW(agent) {
       console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
       console.log('LEGGO DAL CONTESTO UID '+ctx.parameters.userId);
       var idEsame='';
+      var userId=ctx.parameters.userId;
+      var matId=ctx.parameters.matId;
+      console.log('LEGGO DAL CONTESTO matricola ID ='+matId);
       if (ctx.parameters.esami){
         for(var i =0;i<ctx.parameters.esami.length;i++){
           //ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
@@ -1241,8 +1244,9 @@ function callAVANEW(agent) {
                console.log('questo il valore di studente '+ JSON.stringify(stud));
                var uID=stud.userId;
                console.log('uID = '+uID);
-               //var matricolaId=stud.user.trattiCarriera[0].matId;
-               agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID}});
+               var matricolaID=stud.trattiCarriera[0].matId;
+               console.log('matricolaId ='+matricolaId);
+               agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
                agent.add(strOutput);
                resolve(agent);
                 
