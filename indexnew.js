@@ -1262,7 +1262,7 @@ function callAVANEW(agent) {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
             });
             //recupero dati del libretto
-            controller.getLibretto().then((libretto)=> {
+           /* controller.getLibretto().then((libretto)=> {
               
               if (Array.isArray(libretto)){
                 console.log('sono in getInizializzazione getLibretto');
@@ -1279,7 +1279,7 @@ function callAVANEW(agent) {
               }).catch((error) => {
                 console.log('Si è verificato errore in getInizializzazione -getLibretto: ' +error);
               });
-           
+           */
           
             agent.add(strOutput);
             resolve(agent);
