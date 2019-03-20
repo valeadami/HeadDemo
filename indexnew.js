@@ -444,7 +444,7 @@ function callAVANEW(agent) {
     }
     //recupero la variabile legata al contesto
     var ctx=agent.context.get('contesto'); //per utente
-    var ctxLib=agent.context.get('contestolibretto');
+    //var ctxLib=agent.context.get('contestolibretto');
     if (ctx){
       console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
       console.log('LEGGO DAL CONTESTO UID '+ctx.parameters.userId);
@@ -452,9 +452,20 @@ function callAVANEW(agent) {
       var userId=ctx.parameters.userId;
       var matId=ctx.parameters.matId;
       console.log('LEGGO DAL CONTESTO matricola ID ='+matId);
-      
+      if (ctx.parameters.esami){
+        var idEsame='';
+        for(var i =0;i<ctx.parameters.esami.length;i++){
+          //ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
+            if (ctx.parameters.esami[i]===paramEsame){
+              console.log('******** TROVATO ESAME IN CTX ESAMI*******');
+              idEsame=ctx.parameters.adsceId[i];
+              console.log('************ ID DI ESAME = '+idEsame);
+              break;
+            }
+          }
+      }
     }
-    if (ctxLib){
+   /* if (ctxLib){
       if (ctxLib.parameters.esami){
         var idEsame='';
         for(var i =0;i<ctxLib.parameters.esami.length;i++){
@@ -467,7 +478,7 @@ function callAVANEW(agent) {
             }
           }
       }
-  }
+  }*/
     //IN BASE AL COMANDO ASSOCIATO ALL'INTENT ESEGUO AZIONE SU ESSETRE
       switch (strRicerca) {
         case 'getLibretto':
@@ -1267,7 +1278,7 @@ function callAVANEW(agent) {
                         console.log('->inserito in arEsami '+arEsami[i]);
                       }
                     
-                    agent.context.set({ name: 'contestolibretto', lifespan: 20, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
+                    agent.context.set({ name: 'contesto', lifespan: 20, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
                     agent.add(strOutput);
                     resolve(agent); 
                   
