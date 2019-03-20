@@ -1278,7 +1278,7 @@ function callAVANEW(agent) {
                         console.log('->inserito in arEsami '+arEsami[i]);
                       }
                     
-                    agent.context.set({ name: 'contesto', lifespan: 20, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
+                    agent.context.set({ name: 'contesto', lifespan: 5, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
                     agent.add(strOutput);
                     resolve(agent); 
                   
