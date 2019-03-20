@@ -675,10 +675,10 @@ function callAVANEW(agent) {
             
             }*/
 
-          //  if (paramEsame===esameDC){   '5188667'
+          //  if (paramEsame===esameDC){   '5188667' matI
           case 'getInfoGenEsame':
               console.log('sono dentro getInfoGenEsame con esame '+paramEsame);
-              controller.getEsame('291783',idEsame).then((esame) => { 
+              controller.getEsame(matId,idEsame).then((esame) => { 
                 var strTemp=''; 
                 console.log( '**************** dati del singolo esame ******************');
         
