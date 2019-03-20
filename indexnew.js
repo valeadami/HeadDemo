@@ -10,8 +10,8 @@ const querystring = require('querystring');
 const parseurl = require('parseurl');
 const path = require("path");
 const https = require('https');
-const esameDC="DIRITTO COSTITUZIONALE";
-const esameEA="ECONOMIA AZIENDALE";
+/*const esameDC="DIRITTO COSTITUZIONALE";
+const esameEA="ECONOMIA AZIENDALE";*/
 
 /*** DIALOGFLOW FULFILLMENT */
 const {WebhookClient} = require('dialogflow-fulfillment');
@@ -166,7 +166,12 @@ app.get('/', function(req, res, next) {
     agent.fulfillmentText=req.body.queryResult.fulfillmentText;
     console.log('----> fulfillment text =' +agent.fulfillmentText);
     console.info(` sessione agente ` + agent.sessionId +` con parametri` + agent.parameters.Command);
-  
+  //20/03/2019 fallback su plq
+    if (req.body.queryResult.parameters.searchText){
+
+      console.log(' ho param searchText per PLQ =' + req.body.queryResult.parameters.searchText);
+      agent.parameters['searchText']=req.body.queryResult.parameters.searchText;
+    }
     
     let intentMap = new Map();
     //'numero di matricola #infopersonali #esse3'
@@ -421,17 +426,17 @@ function callAVANEW(agent) {
    
     let sessionId = agent.sessionId /*.split('/').pop()*/;
     console.log('dentro call ava il mio session id '+sessionId);
-//questo lo tengo perchè mi serve per recuperare la stringa dall'agente
-    var str= utf8.encode(agent.parameters.Command); //req.body.queryResult.parameters.searchText; //req.body.searchText;
+//questo lo tengo perchè mi serve per recuperare parametro comando proveniente dall'agente
+    var str= utf8.encode(agent.parameters.Command); 
     if (str) {
       strRicerca=querystring.escape(str); //lo tengo comunque
      // options.path+=strRicerca+'&user=&pwd=&ava='+bot;
     
       console.log('il comando da passare : '+ strRicerca);
     }  
-    var strOutput=agent.fulfillmentText;
+    var strOutput=agent.fulfillmentText; //è la risposta statica da DF messa da Roberto
     console.log('strOutput agente prima di EsseTre :' + strOutput);
-    //HO ESAME??
+    //HO ESAME?? Risolvo la entity esame
     if(agent.parameters.esame){
 
       var paramEsame=agent.parameters.esame;
@@ -441,7 +446,7 @@ function callAVANEW(agent) {
     var ctx=agent.context.get('contesto');
     if (ctx){
       console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
-     
+      console.log('LEGGO DAL CONTESTO UID '+ctx.parameters.userId);
       var idEsame='';
     
       for(var i =0;i<ctx.parameters.esami.length;i++){
@@ -456,7 +461,7 @@ function callAVANEW(agent) {
     }else{
     //Da gestire il caso in cui il contesto non è presente
     }
-    
+    //IN BASE AL COMANDO ASSOCIATO ALL'INTENT ESEGUO AZIONE SU ESSETRE
       switch (strRicerca) {
         case 'getLibretto':
           console.log('sono nel getLibretto');
@@ -1063,6 +1068,7 @@ function callAVANEW(agent) {
         
         });
         break;
+        //19/03/2019 commentata questa parte di econmia aziendale ora old
             //18/03/2019 QUESTO DIVENTA OLD
             //******** ECONOMIA AZIENDALE  */ 
             //14/03/2019 da  5057985 a 5188670
@@ -1097,165 +1103,7 @@ function callAVANEW(agent) {
             */
           //30/01/2019
           //5188670 getAnnoEconomia Aziendale
-          case 'getAnnoEconomiaAziendale':
-          controller.GetDettaglioEsame('291783','5188670', 'annoCorso').then((esame) => { 
-            var strTemp=''; 
-            console.log( '**************** dati del ANNO getAnnoEconomia= ' + esame.annoCorso);
-    
-            strTemp +=  esame.annoCorso; 
-            var str=strOutput;
-            str=str.replace(/(@)/gi, strTemp);
-            strOutput=str;
-            agent.add(strOutput);
-            console.log('strOutput con replace in getAnnoEconomia'+ strOutput);
-            resolve(agent);
-
-        }).catch((error) => {
-          console.log('Si è verificato errore in getAnnoEconomia: ' +error);
-          
         
-        });
-          break;
-          //getTipoEsameEconomiaAziendale
-          case 'getTipoEsameEconomiaAziendale':
-          controller.GetDettaglioEsame('291783','5188670', 'tipoEsaDes').then((esame) => { 
-            var strTemp=''; 
-            console.log( '**************** dati del TIPO getTipoEsameEconomiaAziendale ' +esame.tipoEsaDes);
-    
-            strTemp +=  esame.tipoEsaDes; 
-            var str=strOutput;
-            str=str.replace(/(@)/gi, strTemp);
-            strOutput=str;
-            agent.add(strOutput);
-            console.log('strOutput con replace in getTipoEsameEconomiaAziendale'+ strOutput);
-            resolve(agent);
-
-        }).catch((error) => {
-          console.log('Si è verificato errore in getTipoEsameEconomiaAziendale: ' +error);
-          
-        
-        });
-          break;
-          //peso
-          case 'getCreditoFormativoEconomiaAziendale':
-          controller.GetDettaglioEsame('291783','5188670', 'peso').then((esame) => { 
-            var strTemp=''; 
-            console.log( '**************** dati del peso getCreditoFormativoEconomiaAziendale' +esame.peso);
-    
-            strTemp +=  esame.peso; 
-            var str=strOutput;
-            str=str.replace(/(@)/gi, strTemp);
-            strOutput=str;
-            agent.add(strOutput);
-            console.log('strOutput con replace in getCreditoFormativoEconomiaAziendale'+ strOutput);
-            resolve(agent);
-
-        }).catch((error) => {
-          console.log('Si è verificato errore in getCreditoFormativoEconomiaAziendale: ' +error);
-          
-        
-        });
-          break;
-          //getAnnoFrequentatoEconomiaAziendale
-          case 'getAnnoFrequentatoEconomiaAziendale':
-          controller.GetDettaglioEsame('291783','5188670', 'aaFreqId').then((esame) => { 
-            var strTemp=''; 
-            console.log( '**************** dati del ANNO DI FREQUENZA getAnnoFrequentatoEconomiaAziendale' +esame.aaFreqId);
-    
-            strTemp +=  esame.aaFreqId; 
-            var str=strOutput;
-            str=str.replace(/(@)/gi, strTemp);
-            strOutput=str;
-            agent.add(strOutput);
-            console.log('strOutput con replace in getAnnoFrequentatoEconomiaAziendale'+ strOutput);
-            resolve(agent);
-
-        }).catch((error) => {
-          console.log('Si è verificato errore in getAnnoFrequentatoEconomiaAziendale: ' +error);
-          
-        
-        });
-          break;
-          //getDataEsameFattoEconomiaAziendale
-          case 'getDataEsameFattoEconomiaAziendale':
-          controller.GetDettaglioEsame('291783','5188670', 'esito.dataEsa').then((esame) => { 
-            var strTemp=''; 
-            console.log( '**************** dati del esito.dataEsa getDataEsameFattoEconomiaAziendale' +esame.esito.dataEsa);
-    
-            strTemp +=  esame.esito.dataEsa; 
-            var str=strOutput;
-            str=str.replace(/(@)/gi, strTemp);
-            strOutput=str;
-            agent.add(strOutput);
-            console.log('strOutput con replace in getDataEsameFattoEconomiaAziendale'+ strOutput);
-            resolve(agent);
-
-        }).catch((error) => {
-          console.log('Si è verificato errore in getDataEsameFattoEconomiaAziendale: ' +error);
-          
-        
-        });
-          break;
-          //getVotoEconomiaAziendale
-          case 'getVotoEconomiaAziendale':
-          controller.GetDettaglioEsame('291783','5188670', 'esito.voto').then((esame) => { 
-            var strTemp=''; 
-            console.log( '**************** dati del esito.dataEsa getVotoEconomiaAziendale ' +esame.esito.voto);
-    
-            strTemp +=  esame.esito.voto; 
-            var str=strOutput;
-            str=str.replace(/(@)/gi, strTemp);
-            strOutput=str;
-            agent.add(strOutput);
-            console.log('strOutput con replace in getVotoEconomiaAziendale '+ strOutput);
-            resolve(agent);
-
-        }).catch((error) => {
-          console.log('Si è verificato errore in getVotoEconomiaAziendale: ' +error);
-          
-        
-        });
-          break;
-          //getDocenteEconomiaAziendale
-          case 'getDocenteEconomiaAziendale':
-          controller.GetDocente('291783','5188670').then((esame) => { 
-            var strTemp=''; 
-            console.log( '**************** dati del DOCENTE getDocenteEconomiaAziendale ');
-    
-            strTemp +=  esame; //ritorna una stringa con cognome e nome del docente
-            var str=strOutput;
-            str=str.replace(/(@)/gi, strTemp);
-            strOutput=str;
-            agent.add(strOutput);
-            console.log('strOutput con replace in getDocenteEconomiaAziendale '+ strOutput);
-            resolve(agent);
-
-        }).catch((error) => {
-          console.log('Si è verificato errore in getDocenteEconomiaAziendale: ' +error);
-          
-        
-        });
-        break;
-        //TIPOCORSO  getTipoCorsoEconomiaAziendale
-        case 'getTipoCorsoEconomiaAziendale':
-        controller.getSegmento('291783','5188670').then((esame) => { 
-          var strTemp=''; 
-          console.log( '**************** dati del TIPO CORSO getTipoCorsoEconomiaAziendale ');
-  
-          strTemp += esame; //ritorna una stringa con LEZ
-          var str=strOutput;
-          str=str.replace(/(@)/gi, strTemp);
-          strOutput=str;
-          agent.add(strOutput);
-          console.log('strOutput con replace in getTipoCorsoEconomiaAziendale '+ strOutput);
-          resolve(agent);
-
-      }).catch((error) => {
-        console.log('Si è verificato errore in getTipoCorsoEconomiaAziendale: ' +error);
-        
-      
-      });
-      break;
       //30/01/2019
       //getEsamiUltimoAnno ---> QUANTI ESAMI HO FATTO!!!
       case 'getEsamiUltimoAnno':
@@ -1378,10 +1226,38 @@ function callAVANEW(agent) {
           }
           resolve(agent);
           break;
+          //20/03/2019
+          //quando parte dialogo inizializzo applicazione con i dati dell'utente
+          //che servono per effettuare le chiamate su EsseTre quindi 
+          //id matricola, adsceId del libretto con i nomi esami
+          //poi per le prenotazioni
+          //Salvo tutto nel contesto
+          case 'getInizializzazione':
+              //faccio login con utente di test
+              controller.doLogin().then((stud) => { 
+               console.log('sono in getInizializzazione');
+               console.log('questo il valore di studente '+ JSON.stringify(stud));
+               var uID=stud.user.userId;
+               //var matricolaId=stud.user.trattiCarriera[0].matId;
+               agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID}});
+               agent.add(strOutput);
+               resolve(agent);
+                
+            }).catch((error) => {
+                  console.log('Si è verificato errore in getInizializzazione: ' +error);
+            });
+    
+          break;
+          //20/03/2019 fallback con intent Fallback to Panloquacity #nav
+          case 'getRispostaPanloquacity':
+          //posso invocare callAva(agent)
+
+          break;
+          //fine 20/03/2019
         default:
-          console.log('nel default ho solo strOutput :' +responseFromPlq.strOutput);
-          // agent.add(comandi.toString()); 28/01/2019
-          agent.add(responseFromPlq.strOutput);
+          //console.log('nel default ho solo strOutput :' +responseFromPlq.strOutput);
+          console.log('nel default ');
+          agent.add('sono nel default');
           resolve(agent);
           break;
       } //fine switch
