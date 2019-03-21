@@ -136,6 +136,7 @@ app.use(function (req, res, next) {
     var displayname=req.body.queryResult.intent.displayName;
     console.log('nome intent '+name+ ' , display name '+ displayname);
     //******************************************* */
+  
     //recupero la sessionId della conversazione
     
     agent.sessionId=req.body.session.split('/').pop();
@@ -156,13 +157,25 @@ app.use(function (req, res, next) {
       console.log(' ho param searchText per PLQ =' + req.body.queryResult.parameters.searchText);
       agent.parameters['searchText']=req.body.queryResult.parameters.searchText;
     }
-    
-    let intentMap = new Map();
-    //'numero di matricola #infopersonali #esse3'
-    intentMap.set(displayname, callAVANEW); //la funzione callAva sostiutisce la funzione welcome 
-    //intentMap.set('AnyText', callAVANEW); // callAVA anytext AnyText sostituisce 'qualunquetesto'
+    //gestione degli intent
+    //nuovo del 21/03/2019 fallback intent
+      var blnIsFallback=req.body.queryResult.intent.isFallback;
+      console.log('blnIsFallback ?? '+blnIsFallback);
+     
+     //la funzione callAva sostiutisce la funzione welcome 
+     // callAVA anytext AnyText sostituisce 'qualunquetesto'
+      let intentMap = new Map();
+      if (blnIsFallback){
   
-    
+        //recupero il query text del body
+        var stringa=req.body.queryResult.queryText;
+        console.log('query text del fallback :'+stringa);
+        intentMap.set(displayname, callAVA);
+        console.log('funzione callAva per default fallback');
+      } else{
+        intentMap.set(displayname, callAVANEW); 
+        console.log('funzione callAVANEW per tutto il resto');
+      }
     agent.handleRequest(intentMap);
   }
   
@@ -302,7 +315,8 @@ function leggiSessione(path, strSessione){
    
   } 
 //callAva attuale al 10/01/2019
-function callAVA(agent) {
+//rinominata callAvaOriginale in data 21/03/2019
+function callAVAORIGINALE(agent) {
   return new Promise((resolve, reject) => {
  
   let strRicerca='';
@@ -401,6 +415,55 @@ function callAVA(agent) {
   });
  }
  
+ function callAVA(agent) {
+  return new Promise((resolve, reject) => {
+ 
+  let strRicerca=agent.queryText;
+   console.log('valore di strRicerca ' + strRicerca);
+  
+  var str= utf8.encode(strRicerca); 
+  if (str) {
+    strRicerca=querystring.escape(str); 
+    options.path+=strRicerca+'&user=&pwd=&ava='+bot;
+  }
+ 
+   let data = '';
+    let strOutput='';
+ 
+    const req = https.request(options, (res) => {
+    console.log(`STATUS DELLA RISPOSTA: ${res.statusCode}`);
+    console.log(`HEADERS DELLA RISPOSTA: ${JSON.stringify(res.headers)}`);
+
+
+    res.setEncoding('utf8');
+    res.on('data', (chunk) => {
+     console.log(`BODY: ${chunk}`);
+     data += chunk;
+  
+     let c=JSON.parse(data);
+      strOutput=c.output[0].output;
+      strOutput=strOutput.replace(/(<\/p>|<p>|<b>|<\/b>|<br>|<\/br>|<strong>|<\/strong>|<div>|<\/div>|<ul>|<li>|<\/ul>|<\/li>|&nbsp;|)/gi, '');
+      agent.add(strOutput); 
+      resolve(agent);
+    });
+    res.on('end', () => {
+      console.log('No more data in response.');
+      options.path='/AVA/rest/searchService/search_2?searchText=';      
+      console.log('valore di options.path FINE ' +  options.path);
+ 
+    });
+  });
+   req.on('error', (e) => {
+   console.error(`problem with request: ${e.message}`);
+   strOutput="si è verificato errore " + e.message;
+
+  });
+
+   req.write(postData);
+  req.end();
+  });
+ }
+ /* fine modifica del 21/03/2019 */
 
 //mia nuova che non funziona 
 function callAVANEW(agent) { 
