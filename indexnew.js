@@ -170,6 +170,7 @@ app.use(function (req, res, next) {
         //recupero il query text del body
         var stringa=req.body.queryResult.queryText;
         console.log('query text del fallback :'+stringa);
+        agent.queryText=stringa;
         intentMap.set(displayname, callAVA);
         console.log('funzione callAva per default fallback');
       } else{
