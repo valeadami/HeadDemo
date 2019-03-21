@@ -80,7 +80,7 @@ app.use(function (req, res, next) {
       'Cookie':'' // +avaSession 
     }
   };
- 
+ //PER TEST
   app.get('/login', function(req, res, next) {
     controller.getMediaComplessiva('291783').then((libretto) => { 
       console.log('sono in getmediacomplessiva')
@@ -101,48 +101,32 @@ app.use(function (req, res, next) {
   
     }) 
 
-
-app.get('/', function(req, res, next) {
+    //PER TEST
+    app.get('/', function(req, res, next) {
+        
+      
+        res.render("index", {  message:" Benvenuto nella pagina di test "});
+      
+    });
+    app.get('/testLocale', function(req, res, next) {
+      
+        res.send('ok')
+        
     
-  
-     res.render("index", {  message:" Benvenuto nella pagina di test "});
-  
- });
- app.get('/testLocale', function(req, res, next) {
-  
-    res.send('ok')
-    
- 
-});
- app.get('/testSessione', function(req, res, next) {
-   
-      res.setHeader('Content-Type', 'text/html')
-      res.write("sono nella root ");
-      res.write('<p>views: ' + req.session.views + '</p>')
-      res.write('<p> id sessione ' + req.session.id  +' expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-     
-      res.end()
-  
-  })
+    });
+    //PER TEST
+    app.get('/testSessione', function(req, res, next) {
+      
+          res.setHeader('Content-Type', 'text/html')
+          res.write("sono nella root ");
+          res.write('<p>views: ' + req.session.views + '</p>')
+          res.write('<p> id sessione ' + req.session.id  +' expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+        
+          res.end()
+      
+      })
 
-  /*
- qui ci sarà il codice per gestire app DF con actions
 
-  */
- function welcome (agent) {
-    agent.add(`Ciao, sono l'assistente virtuale dell’Università degli studi di Trieste. Posso aiutarti a prenotare un appello, vedere il tuo libretto, vedere i risultati di un esame. Dì ad esempio elenco esami per ascoltare i dati del tuo libretto `);
- 
-   console.log('sono nel welcome');
-  }
-  
-  function fallback (agent) {
-    agent.add(`I didn't understand from server`);
-   console.log('sono nel fallback');
-  }
-  function anytext (agent) {
-    agent.add(`sono in anytext`);
-   console.log('sono in anytext');
-  }
  function WebhookProcessing(req, res) {
     const agent = new WebhookClient({request: req, response: res});
     //10/01/2019
@@ -537,8 +521,8 @@ function callAVANEW(agent) {
           //28/01/2019
         case 'getInformazioni':
   
-              //14/03/2109 il nuovo user è s262502
-              controller.getCarriera('s262502').then((carriera)=> {
+              //14/03/2109 il nuovo user è s262502 userId
+              controller.getCarriera(userId).then((carriera)=> {
               var strTemp='';
               strTemp+='Ti sei immatricolato nell anno '+ carriera.aaId + ' , con numero matricola  '+ carriera.matricola + ', nel corso di laurea '+ carriera.cdsDes +', tipo di corso di laurea '+ carriera.tipoCorsoDes; + 'percorso '+carriera.pdsDes +', stato attuale :' +carriera.motStastuDes
               console.log('sono nella carriera ...');
@@ -584,7 +568,7 @@ function callAVANEW(agent) {
         //28/01/2019
         //19/03/2019 resta così per il momento
         case 'getNumeroMatricola':
-          controller.getCarriera('s262502').then((carriera)=> {
+          controller.getCarriera(userId).then((carriera)=> {
             var strTemp='';
             strTemp+='' + carriera.matricola;
           console.log('chiedo il numero di matricola ...');
@@ -608,7 +592,7 @@ function callAVANEW(agent) {
           break;
           //28/01/2019
           case 'getAnnoImmatricolazione':
-          controller.getCarriera('s262502').then((carriera)=> {
+          controller.getCarriera(userId).then((carriera)=> {
             var strTemp='';
             var dt=carriera.dataImm; //elimino minuti e secondi
             strTemp+='' + dt.substring(0,10);
@@ -1265,7 +1249,7 @@ function callAVANEW(agent) {
                console.log('uID = '+uID);
                matricolaID=stud.trattiCarriera[0].matId;
                console.log('matricolaId ='+matricolaID);
-               //prova *******************
+               //********** */modifica del  20/03/2019   così ho in un contesto solo tutti i dati *******************
                   controller.getLibretto().then((libretto)=> {
                   
                     if (Array.isArray(libretto)){
@@ -1278,7 +1262,7 @@ function callAVANEW(agent) {
                         console.log('->inserito in arEsami '+arEsami[i]);
                       }
                     
-                    agent.context.set({ name: 'contesto', lifespan: 5, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
+                    agent.context.set({ name: 'contesto', lifespan: 20, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
                     agent.add(strOutput);
                     resolve(agent); 
                   
@@ -1296,7 +1280,7 @@ function callAVANEW(agent) {
             }).catch((error) => {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
             });
-            //recupero dati del libretto
+            //recupero dati del libretto OLD DEL 20/03/2019
            /* controller.getLibretto().then((libretto)=> {
               
               if (Array.isArray(libretto)){
