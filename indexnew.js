@@ -427,7 +427,9 @@ function callAVANEW(agent) {
       console.log('in callAvanew ho esame '+ paramEsame);
     }
     //recupero la variabile legata al contesto
-    var ctx=agent.context.get('contesto'); //per utente
+    //21/03/2019 rinominato da contesto in vardisessione e inserito anche nell'agente 
+    //in welcome nav impostato a 1000
+    var ctx=agent.context.get('vardisessione'); //per utente
     //var ctxLib=agent.context.get('contestolibretto');
     if (ctx){
       console.log('ho già il contesto quindi recupero id esame: lookup da params esami');
@@ -1262,7 +1264,7 @@ function callAVANEW(agent) {
                         console.log('->inserito in arEsami '+arEsami[i]);
                       }
                     
-                    agent.context.set({ name: 'contesto', lifespan: 20, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
+                    agent.context.set({ name: 'vardisessione', lifespan: 1000, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
                     agent.add(strOutput);
                     resolve(agent); 
                   
