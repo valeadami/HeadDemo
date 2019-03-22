@@ -1041,14 +1041,22 @@ function callAVANEW(agent) {
               break;*/
               case 'getVotoEsame':
               controller.GetDettaglioEsame(matId,idEsame, 'esito.voto').then((esame) => { 
-                var strTemp=''; 
                 console.log( '**************** dati del  getVotoEsame esame.esito.voto ' +esame.esito.voto);
+                var strTemp=''; 
+                var risposta=[];
+                console.log('strOutput prima dello split '+ strOutput);
+                risposta=strOutput.split("|");
+                console.log('dopo lo split, risposta[0] ='+ risposta[0] + ", risposta[1] " + risposta[1]);
+               
                 //19/03/2019
                 if ( esame.esito.voto===null || esame.esito.voto==='' ){
-                  strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
+                  //modifica del 22/03/2019 vedi anche GetDataEsame
+                 // strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
+                 strOutput=risposta[1];
                 }else{
                   strTemp +=  esame.esito.voto; 
-                  var str=strOutput;
+                  //var str=strOutput; -> dopo modifica del 22/03/2019 devo scrivere come sotto
+                  var str=risposta[0];
                   str=str.replace(/(@)/gi, strTemp);
                   strOutput=str;
                 }
