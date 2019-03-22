@@ -988,7 +988,13 @@ function callAVANEW(agent) {
                 console.log( '**************** dati del esito.dataEsa getDataEsame' +esame.esito.dataEsa);
                 //SE MANCA ESAME RIMPIAZZA IL TESTO 19/03/2019
                 if (esame.esito.dataEsa==''){
-                  strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
+                  // prova del 22/03/2018 originale
+                  //strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
+                  var strJson=JSON.parse(strOutput);
+                  console.log('strJson = '+ JSON.stringify(strJson));
+                  strOutput=strJson.risposta_nok;
+                  console.log('qui dovrebbe essere strOutput con risposta nok '+strOutput);
+
                 }else{
                   strTemp +=  esame.esito.dataEsa; 
                   var str=strOutput;
@@ -1371,10 +1377,11 @@ function callAVANEW(agent) {
             
           break;
           //20/03/2019 fallback con intent Fallback to Panloquacity #nav
-          case 'getRispostaPanloquacity':
+          //21/03/2019 non serve più
+          //case 'getRispostaPanloquacity':
           //posso invocare callAva(agent)
 
-          break;
+          //break;
           //fine 20/03/2019
         default:
           //console.log('nel default ho solo strOutput :' +responseFromPlq.strOutput);
