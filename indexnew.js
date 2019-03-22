@@ -990,10 +990,12 @@ function callAVANEW(agent) {
                 if (esame.esito.dataEsa==''){
                   // prova del 22/03/2018 originale
                   //strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
-                  var strJson=JSON.parse(strOutput);
-                  console.log('strJson = '+ JSON.stringify(strJson));
-                  strOutput=strJson.risposta_nok;
-                  console.log('qui dovrebbe essere strOutput con risposta nok '+strOutput);
+                  var resp2=[];
+                  console.log('strOutput prima '+ strOutput);
+                  resp2=strOutput.split("|");
+                  console.log('dopo lo split, resp[0] ='+ resp[0] + ", resp[1] " + resp[1]);
+                  strOutput=resp[1];
+                  
 
                 }else{
                   strTemp +=  esame.esito.dataEsa; 
