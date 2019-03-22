@@ -984,22 +984,24 @@ function callAVANEW(agent) {
               //nuovo del 19/03/2019
               case 'getDataEsame':
               controller.GetDettaglioEsame(matId,idEsame, 'esito.dataEsa').then((esame) => { 
-                var strTemp=''; 
                 console.log( '**************** dati del esito.dataEsa getDataEsame' +esame.esito.dataEsa);
+                var strTemp=''; 
+                var risposta=[];
+                console.log('strOutput prima dello split '+ strOutput);
+                risposta=strOutput.split("|");
+                console.log('dopo lo split, risposta[0] ='+ risposta[0] + ", risposta[1] " + risposta[1]);
+               
                 //SE MANCA ESAME RIMPIAZZA IL TESTO 19/03/2019
                 if (esame.esito.dataEsa==''){
-                  // prova del 22/03/2018 originale
+                  // prova del 22/03/2018 originale sotto
                   //strOutput="Purtroppo non hai ancora sostenuto l'esame di "+paramEsame;
-                  var rispostaNok=[];
-                  console.log('strOutput prima '+ strOutput);
-                  rispostaNok=strOutput.split("|");
-                  console.log('dopo lo split, rispostaNok[0] ='+ rispostaNok[0] + ", rispostaNok[1] " + rispostaNok[1]);
-                  strOutput=rispostaNok[1];
-                  
-
+                  //ora la risposta proviene dall'agente 
+                  strOutput=risposta[1];
+              
                 }else{
                   strTemp +=  esame.esito.dataEsa; 
-                  var str=strOutput;
+                  //var str=strOutput; -> dopo modifica del 22/03/2019 devo scrivere come sotto
+                  var str=risposta[0];
                   str=str.replace(/(@)/gi, strTemp);
                   strOutput=str;
                 }
