@@ -1427,7 +1427,7 @@ function callAVANEW(agent) {
             }
             return idAp;
           }).then(function (idAp){
-            controller.getAppelloDaPrenotare(cdsId,idAp).then((appelliDaPrenotare)=>{
+            controller.getAppelloDaPrenotare(cdsId,111218).then((appelliDaPrenotare)=>{
               if (Array.isArray(appelliDaPrenotare)){
                 console.log('2) sono dentro getAppelloDaPrenotare');
                 var strTemp='';
