@@ -1437,22 +1437,25 @@ function callAVANEW(agent) {
                             appelliDaPrenotare[i].dataInizioIscr + ' fino al '+ appelliDaPrenotare[i].dataFineIscr +'\n';
                  
                   }
+                }
                   console.log('Valore di strTemp '+ strTemp);
-             
-              }//fine if is array
-              var str=strOutput;
-              str=str.replace(/(@)/gi, strTemp);
-              strOutput=str;
-              agent.add(strOutput);
-              console.log('strOutput con replace in  getPrenotazioneAppelli-> getAppelloDaPrenotare '+ strOutput);
-              resolve(agent);
+                  return strTemp;
+              }).then(function (strTemp)  {
+
+            
+                var str=strOutput;
+                str=str.replace(/(@)/gi, strTemp);
+                strOutput=str;
+                agent.add(strOutput);
+                console.log('strOutput con replace in  getPrenotazioneAppelli-> getAppelloDaPrenotare '+ strOutput);
+                resolve(agent);
              }).catch((error) => {
             console.log('Si è verificato errore in getPrenotazioneAppelli-> getAppelloDaPrenotare ' +error);
           });
-   
+  
         }).catch((error) => {
           console.log('Si è verificato errore in getPrenotazioneAppelli: ' +error);
-        });
+        }); 
 
               break;
         default:
