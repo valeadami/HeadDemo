@@ -1437,14 +1437,14 @@ function callAVANEW(agent) {
                            
                             }
                             console.log('Valore di strTemp '+ strTemp);
-                       
+                            var str=strOutput;
+                            str=str.replace(/(@)/gi, strTemp);
+                            strOutput=str;
+                            agent.add(strOutput);
+                            console.log('strOutput con replace in  getPrenotazioneAppelli-> getAppelloDaPrenotare '+ strOutput);
+                            resolve(agent);
                         }//fine if is array
-                        var str=strOutput;
-                        str=str.replace(/(@)/gi, strTemp);
-                        strOutput=str;
-                        agent.add(strOutput);
-                        console.log('strOutput con replace in  getPrenotazioneAppelli-> getAppelloDaPrenotare '+ strOutput);
-                        resolve(agent);
+                        
                        }).catch((error) => {
                       console.log('Si è verificato errore in getPrenotazioneAppelli-> getAppelloDaPrenotare ' +error);
                     });
