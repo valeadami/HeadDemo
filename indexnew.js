@@ -1343,8 +1343,10 @@ function callAVANEW(agent) {
                uID=stud.userId;
                console.log('uID = '+uID);
                matricolaID=stud.trattiCarriera[0].matId;
-               cdsId=stud.trattiCarriera[0].cdsId;
                console.log('matricolaId ='+matricolaID);
+               //MODIFICA DEL 25/03/2019
+               cdsId=stud.trattiCarriera[0].cdsId;
+               console.log('CORSO DI STUDIO ID  ='+cdsId);
                //********** */modifica del  20/03/2019   così ho in un contesto solo tutti i dati *******************
                   controller.getLibretto().then((libretto)=> {
                   
@@ -1357,11 +1359,11 @@ function callAVANEW(agent) {
                         arEsami.push(libretto[i].adDes);
                         console.log('->inserito in arEsami '+arEsami[i]);
                         //modifica del 25/03/2019
-                        arAdId.push(libretto[i].chiaveADContestualizzata[i].adId);
+                        arAdId.push(libretto[i].chiaveADContestualizzata.adId);
                         console.log('-> inserito adId '+libretto[i].chiaveADContestualizzata.adId);
                       }
                       
-
+                    //25/03/2019 AGGIUNTO cdsId E idAppelli PER LE PRENOTAZIONI APPELLI
                     agent.context.set({ name: 'vardisessione', lifespan: 1000, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami, "cdsId":cdsId,"idAppelli":arAdId}});
                     agent.add(strOutput);
                     resolve(agent); 
