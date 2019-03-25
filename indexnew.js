@@ -1388,11 +1388,32 @@ function callAVANEW(agent) {
            
             
           break;
-          //20/03/2019 fallback con intent Fallback to Panloquacity #nav
-          //21/03/2019 non serve più
-          //case 'getRispostaPanloquacity':
-          //posso invocare callAva(agent)
-
+          //************* PRENOTAZIONE 25/03/2019 */
+          case 'getPrenotazioneAppelli':
+                var strTemp=''; 
+                controller.getPrenotazioni(matId).then((prenotazioni) => { 
+       
+                  if (Array.isArray(prenotazioni)){
+                  
+                    for(var i=0; i<prenotazioni.length; i++){
+            
+                      strTemp+= prenotazioni[i].adDes+ '\n ' ;
+                      }
+  
+                   }
+                   var str=strOutput;
+                   str=str.replace(/(@)/gi, strTemp);
+                   strOutput=str;
+                   agent.add(strOutput);
+                   console.log('strOutput con replace in getPrenotazioneAppelli'+ strOutput);
+                   resolve(agent);
+     
+               }).catch((error) => {
+                 console.log('Si è verificato errore in getPrenotazioneAppelli: ' +error);
+                 
+               
+               });
+              break;
           //break;
           //fine 20/03/2019
         default:
