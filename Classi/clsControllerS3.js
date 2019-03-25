@@ -715,11 +715,11 @@ function getPrenotazioni(matId){
                 for(var i=0; i<body.length; i++){
 
                     prenotazioni[i]= new rigaLibretto(body[i].aaFreqId,body[i].adCod, 
-                        body[i].adDes,body[i].adsceId, body[i].annoCorso, 
-                        body[i].dataFreq,body[i].dataScadIscr,body[i].esito, body[i].chiaveADContestualizzata.adId);
+                        body[i].adDes,body[i].adsceId, body[i].annoCorso, body[i].chiaveADContestualizzata,
+                        body[i].dataFreq,body[i].dataScadIscr,body[i].esito, );
 
                         prenotazioni[i].log();
-                        console.log('**** chiave adcontestualizzata ad ==========='+body[i].chiaveADContestualizzata.adId);
+                        console.log('**** chiave adcontestualizzata ad ==========='+ prenotazioni[i].chiaveADContestualizzata.adId);
 
                 }
                 resolve(prenotazioni);
