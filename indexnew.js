@@ -1412,10 +1412,10 @@ function callAVANEW(agent) {
           break;
           //************* PRENOTAZIONE 25/03/2019 */
           case 'getPrenotazioneAppelli':
-                console.log('sono in getPrenotazioneAppelli');
+                
                 var idAp=''; 
                 controller.getPrenotazioni(matId).then((prenotazioni) => { 
-       
+                  console.log('sono in getPrenotazioni');
                   if (Array.isArray(prenotazioni)){
                   
                     for(var i=0; i<prenotazioni.length; i++){
@@ -1423,9 +1423,8 @@ function callAVANEW(agent) {
                       idAp= prenotazioni[i].chiaveADContestualizzata.adId + '\n ' ;
                      
                       }
-                      console.log('in getPrenotazioni ho idAp '+ idAp);
-                      agent.add('in getPrenotazioni ho idAp '+ idAp);
-                      resolve(agent);
+                     
+                      
                       //ora che ho ottenuto idAppello ...ocio che adesso è uno ma potrebbe essere un array
                       /*controller.getAppelloDaPrenotare(cdsId,idAp).then((appelliDaPrenotare)=>{
                         if (Array.isArray(appelliDaPrenotare)){
@@ -1451,7 +1450,8 @@ function callAVANEW(agent) {
                     });
                     */
                    } //fine if is array getPrenotazioni
-
+                   agent.add('in getPrenotazioni ho idAp '+ idAp);
+                  resolve(agent);
                }).catch((error) => {
                  console.log('Si è verificato errore in getPrenotazioneAppelli: ' +error);
                });
