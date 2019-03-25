@@ -1414,7 +1414,7 @@ function callAVANEW(agent) {
           case 'getPrenotazioneAppelli':
                 
                 var idAp=''; 
-               /* controller.getPrenotazioni(matId).then((prenotazioni) => { 
+               controller.getPrenotazioni(matId).then((prenotazioni) => { 
                   console.log('1) sono in getPrenotazioni'); //+ JSON.stringify(prenotazioni)
                  
                   if (Array.isArray(prenotazioni)){
@@ -1424,7 +1424,7 @@ function callAVANEW(agent) {
                       idAp= prenotazioni[i].chiaveADContestualizzata.adId + '\n ' ;
                       
                       }
-                   console.log('**********idAp=========='+idAp);*/
+                   console.log('**********idAp=========='+idAp);
                       //ora che ho ottenuto idAppello ...ocio che adesso è uno ma potrebbe essere un array*/
                       controller.getAppelloDaPrenotare(cdsId,111218).then((appelliDaPrenotare)=>{
                         if (Array.isArray(appelliDaPrenotare)){
@@ -1449,12 +1449,12 @@ function callAVANEW(agent) {
                       console.log('Si è verificato errore in getPrenotazioneAppelli-> getAppelloDaPrenotare ' +error);
                     });
                     
-/*
+
                    } //fine if is array getPrenotazioni
                   
                }).catch((error) => {
                  console.log('Si è verificato errore in getPrenotazioneAppelli: ' +error);
-               });*/
+               });
               break;
         default:
           //console.log('nel default ho solo strOutput :' +responseFromPlq.strOutput);
