@@ -1426,7 +1426,7 @@ function callAVANEW(agent) {
                       }
                    console.log('**********idAp=========='+idAp);
                       //ora che ho ottenuto idAppello ...ocio che adesso è uno ma potrebbe essere un array*/
-                      controller.getAppelloDaPrenotare(cdsId,111218).then((appelliDaPrenotare)=>{
+                      controller.getAppelloDaPrenotare(cdsId,idAp).then((appelliDaPrenotare)=>{
                         if (Array.isArray(appelliDaPrenotare)){
                           console.log('2) sono dentro getAppelloDaPrenotare');
                           var strTemp='';
