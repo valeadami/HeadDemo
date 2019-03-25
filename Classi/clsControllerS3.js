@@ -700,6 +700,7 @@ function getAppelliPrenotabili(matId){
 
 } //fine getAppelliPrenotabili
 //function getPrenotazioni(matid)
+//**************** MODIFICA DEL 25/03/2019 AGGIUNTO CHIAVEADCONTESTUALIZZATA.ADID PER PRENOTAZIONE   */
 function getPrenotazioni(matId){
     return new Promise(function(resolve, reject) {
     //array che contiene le righe del libretto
@@ -715,7 +716,7 @@ function getPrenotazioni(matId){
 
                     prenotazioni[i]= new rigaLibretto(body[i].aaFreqId,body[i].adCod, 
                         body[i].adDes,body[i].adsceId, body[i].annoCorso, 
-                        body[i].dataFreq,body[i].dataScadIscr,body[i].esito);
+                        body[i].dataFreq,body[i].dataScadIscr,body[i].esito, body[i].chiaveADContestualizzata.adId);
 
                         prenotazioni[i].log();
 

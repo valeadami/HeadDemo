@@ -1412,32 +1412,47 @@ function callAVANEW(agent) {
           break;
           //************* PRENOTAZIONE 25/03/2019 */
           case 'getPrenotazioneAppelli':
-                var strTemp=''; 
+                console.log('sono in getPrenotazioneAppelli');
+                var idAp=''; 
                 controller.getPrenotazioni(matId).then((prenotazioni) => { 
        
                   if (Array.isArray(prenotazioni)){
                   
                     for(var i=0; i<prenotazioni.length; i++){
             
-                      strTemp+= prenotazioni[i].adDes+ '\n ' ;
+                      idAp= prenotazioni[i].chiaveADContestualizzata.adId + '\n ' ;
+                      console.log('in getPrenotazioni ho idAp '+ idAp);
                       }
-  
-                   }
-                   var str=strOutput;
-                   str=str.replace(/(@)/gi, strTemp);
-                   strOutput=str;
-                   agent.add(strOutput);
-                   console.log('strOutput con replace in getPrenotazioneAppelli'+ strOutput);
-                   resolve(agent);
-     
+                    
+                      //ora che ho ottenuto idAppello ...ocio che adesso è uno ma potrebbe essere un array
+                      controller.getAppelloDaPrenotare(cdsId,idAp).then((appelliDaPrenotare)=>{
+                        if (Array.isArray(appelliDaPrenotare)){
+                          var strTemp='';
+                          for(var i=0; i<appelliDaPrenotare.length; i++){
+            
+                            strTemp+= 'Appello di ' + appelliDaPrenotare[i].adDes + ', in data '+ appelliDaPrenotare[i].dataInizioApp +', iscrizione aperta dal '+  
+                                      appelliDaPrenotare[i].dataInizioIscr + ' fino al '+ appelliDaPrenotare[i].dataFineIscr +'\n';
+                           
+                            }
+                            console.log('Valore di strTemp '+ strTemp);
+                        
+                       
+                          var str=strOutput;
+                          str=str.replace(/(@)/gi, strTemp);
+                          strOutput=str;
+                          agent.add(strOutput);
+                          console.log('strOutput con replace in  getPrenotazioneAppelli-> getAppelloDaPrenotare '+ strOutput);
+                          resolve(agent);
+                        }//fine if is array
+                       }).catch((error) => {
+                      console.log('Si è verificato errore in getPrenotazioneAppelli-> getAppelloDaPrenotare ' +error);
+                    });
+                   } //fine if is array getPrenotazioni
+
                }).catch((error) => {
                  console.log('Si è verificato errore in getPrenotazioneAppelli: ' +error);
-                 
-               
                });
               break;
-          //break;
-          //fine 20/03/2019
         default:
           //console.log('nel default ho solo strOutput :' +responseFromPlq.strOutput);
           console.log('nel default ');
