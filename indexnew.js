@@ -1415,7 +1415,8 @@ function callAVANEW(agent) {
                 
                 var idAp=''; 
                 controller.getPrenotazioni(matId).then((prenotazioni) => { 
-                  console.log('sono in getPrenotazioni');
+                  console.log('sono in getPrenotazioni' + JSON.stringify(prenotazioni));
+                  var pippo='';
                   if (Array.isArray(prenotazioni)){
                     console.log('sono dentro array lungo '+ prenotazioni.length);
                     for(var i=0; i<prenotazioni.length; i++){
