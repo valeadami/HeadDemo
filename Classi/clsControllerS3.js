@@ -784,12 +784,12 @@ function getPrenotati(matId){
 });
 } 
 //prenotazione: ottengo l'appello da prenotare 10094/117740/?stato=P'
-//25/01/2019  
+//25/01/2019  modificata la query perchè così è più veloce
 function getSingoloAppelloDaPrenotare(cdsId,adId){
     return new Promise(function(resolve, reject) {
         var options = { 
             method: 'GET',
-            url: strUrlGetAppelloDaPrenotare  + cdsId +'/' + adId + '?q=APPELLI_PRENOTABILI', //'/?stato=P',
+            url: strUrlGetAppelloDaPrenotare  + cdsId +'/' + adId + '/?q=APPELLI_PRENOTABILI', //'/?stato=P',
             headers: 
                 { 
                     'cache-control': 'no-cache',
