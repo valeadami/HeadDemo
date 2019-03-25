@@ -502,6 +502,10 @@ function callAVANEW(agent) {
       var userId=ctx.parameters.userId;
       var matId=ctx.parameters.matId;
       console.log('LEGGO DAL CONTESTO matricola ID ='+matId);
+       //modifica del 25/03/2019
+       var cdsId=ctx.parameters.cdsId;
+       console.log('LEGGO DAL CONTESTO corso di studio id  ='+cdsId);
+       /************************************************ */
       if (ctx.parameters.esami){
         var idEsame='';
         for(var i =0;i<ctx.parameters.esami.length;i++){
@@ -514,6 +518,9 @@ function callAVANEW(agent) {
             }
           }
       }
+
+      //25/03/2019 gestisco le prenotazioni, ho bisogno di sapere id degli appelli 
+
     }
    /* if (ctxLib){
       if (ctxLib.parameters.esami){
@@ -1320,10 +1327,14 @@ function callAVANEW(agent) {
           //id matricola, adsceId del libretto con i nomi esami
           //poi per le prenotazioni
           //Salvo tutto nel contesto
+          /**** modificata in data 25/03/2019 per prenotazione: aggiunto cdsId 10094 giurisprudenza da login
+           * e adId ossia attività didattica, campo della chiave Contestualizzata del libretto */
           case 'getInizializzazione':
               //faccio login con utente di test
               var uID=''; //userId
               var matricolaID=''; //matId
+              var cdsId='';//10094 per giurisprundenza-> per la prenotazione
+              var arAdId=[]; //array per adId per la prenotazione
               var arIDS=[]; //adsceId degli esami del libretto
               var arEsami=[]; //descrizioni degli esami del libretto
               controller.doLogin().then((stud) => { 
@@ -1332,6 +1343,7 @@ function callAVANEW(agent) {
                uID=stud.userId;
                console.log('uID = '+uID);
                matricolaID=stud.trattiCarriera[0].matId;
+               cdsId=stud.trattiCarriera[0].cdsId;
                console.log('matricolaId ='+matricolaID);
                //********** */modifica del  20/03/2019   così ho in un contesto solo tutti i dati *******************
                   controller.getLibretto().then((libretto)=> {
@@ -1344,9 +1356,13 @@ function callAVANEW(agent) {
                         console.log('->inserito in arIDS '+arIDS[i]);
                         arEsami.push(libretto[i].adDes);
                         console.log('->inserito in arEsami '+arEsami[i]);
+                        //modifica del 25/03/2019
+                        arAdId.push(libretto[i].chiaveADContestualizzata[i].adId);
+                        console.log('-> inserito adId '+libretto[i].chiaveADContestualizzata.adId);
                       }
-                    
-                    agent.context.set({ name: 'vardisessione', lifespan: 1000, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami}});
+                      
+
+                    agent.context.set({ name: 'vardisessione', lifespan: 1000, parameters: {  "userId": uID, "matId":matricolaID,"adsceId":arIDS, "esami":arEsami, "cdsId":cdsId,"idAppelli":arAdId}});
                     agent.add(strOutput);
                     resolve(agent); 
                   
