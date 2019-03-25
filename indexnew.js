@@ -508,12 +508,16 @@ function callAVANEW(agent) {
        /************************************************ */
       if (ctx.parameters.esami){
         var idEsame='';
+        var idAppello='';
         for(var i =0;i<ctx.parameters.esami.length;i++){
           //ciclo nell'array dei nomi degli esami, se lo trovo, prendo il corrispondente id nel array ID
             if (ctx.parameters.esami[i]===paramEsame){
               console.log('******** TROVATO ESAME IN CTX ESAMI*******');
               idEsame=ctx.parameters.adsceId[i];
-              console.log('************ ID DI ESAME = '+idEsame);
+           
+              //modifica del 25/03/2019 per prenotazione appelli
+              idAppello=ctx.parameters.idAppelli[i];
+              console.log('************ ID DI ESAME = '+idEsame + ' e con idAppello '+idAppello);
               break;
             }
           }
