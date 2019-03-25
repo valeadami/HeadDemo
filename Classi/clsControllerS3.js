@@ -719,6 +719,7 @@ function getPrenotazioni(matId){
                         body[i].dataFreq,body[i].dataScadIscr,body[i].esito, body[i].chiaveADContestualizzata.adId);
 
                         prenotazioni[i].log();
+                        console.log('**** chiave adcontestualizzata ad ==========='+body[i].chiaveADContestualizzata.adId);
 
                 }
                 resolve(prenotazioni);
