@@ -1352,7 +1352,7 @@ function callAVANEW(agent) {
                cdsId=stud.trattiCarriera[0].cdsId;
                console.log('CORSO DI STUDIO ID  ='+cdsId);
                //********** */modifica del  20/03/2019   così ho in un contesto solo tutti i dati *******************
-                  controller.getLibretto().then((libretto)=> {
+                /*  controller.getLibretto().then((libretto)=> {
                   
                     if (Array.isArray(libretto)){
                       console.log('sono in getInizializzazione getLibretto');
@@ -1377,11 +1377,7 @@ function callAVANEW(agent) {
                       console.log('Si è verificato errore in getInizializzazione -getLibretto: ' +error);
                     });
 
-               //li setto tutti, intanto recupero userid e matricola
-              // agent.context.set({ name: 'contesto', lifespan: 20, parameters: { "userId": uID, "matId":matricolaID}});
-             
-              /* agent.add(strOutput);
-               resolve(agent);*/
+            */
                 
             }).catch((error) => {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
