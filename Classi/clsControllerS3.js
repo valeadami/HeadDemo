@@ -55,7 +55,7 @@ function getEsseTreLogin(){
                 //così ritorno una stringa...
                  //resolve('ritorno il messaggio di errore '+body.retErrMsg); 
                  //...ma sarebbe meglio fare un reject
-                 reject(new Error("Errore 401 utente non trovato"), null);
+                 reject("Errore 401 utente non trovato");
                }else{
                  console.log('si è verificato altro errore');
                }
