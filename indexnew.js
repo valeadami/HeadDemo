@@ -1385,6 +1385,8 @@ function callAVANEW(agent) {
                 
             }).catch((error) => {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
+                  agent.add(error);
+                  resolve(agent);
             });
             //recupero dati del libretto OLD DEL 20/03/2019
            /* controller.getLibretto().then((libretto)=> {
