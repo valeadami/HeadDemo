@@ -27,6 +27,7 @@ var strUrlDeleteAppello='https://units.esse3.pp.cineca.it/e3rest/api/calesa-serv
 // MEDIA ARITMETICA DEL LIBRETTO https://units.esse3.pp.cineca.it/e3rest/api/libretto-service-v1/libretti/286879/medie/CDSORD/A
 //var strUrlGetAppelliPrenotati=strUrlGetSingoloEsame';
 //qui ci vorrà user e pwd
+//modifica del 26/03/2019
 function getEsseTreLogin(){
     return new Promise(function(resolve, reject) {
     var options = { 
@@ -49,14 +50,22 @@ function getEsseTreLogin(){
             if (response.statusCode==200){
                 console.log(body);
                 resolve(body); //ritorna una oggetto json
-            }  
-        }
-
+            }  else if (response.statusCode=401){
+              
+                //così ritorno una stringa...
+                 //resolve('ritorno il messaggio di errore '+body.retErrMsg); 
+                 //...ma sarebbe meglio fare un reject
+                 reject(new Error("Errore 401 utente non trovato da new error"), null);
+               }else{
+                 console.log('si è verificato altro errore');
+               }
+            }
     });
 
 });
 
 }
+//modifica del 26/03/2019
 function doLogin(){
     return new Promise(function(resolve, reject) {
     getEsseTreLogin().then((body)=>{
@@ -65,7 +74,9 @@ function doLogin(){
         stud.log()
         resolve(stud);
 
-    });
+    }).catch((error) => {
+        console.log('sono in doLogin: ' +error);
+      });
 });
 }
 //riscrivo doLogin con le promise
