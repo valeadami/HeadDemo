@@ -1341,12 +1341,14 @@ function callAVANEW(agent) {
               var arAdId=[]; //array per adId per la prenotazione
               var arIDS=[]; //adsceId degli esami del libretto
               var arEsami=[]; //descrizioni degli esami del libretto
-              controller.doLogin()/*.then((stud)=>{
+              controller.doLogin().then((stud)=>{
                 console.log('risultato '+stud);
               
              
-              }) */.catch((error) => {
+              }).catch((error) => {
                 console.log('Errore : ' +error);
+              }).then((error)=>{
+                console.log('porco dio');
               });
               /*controller.doLogin().then((stud) => { 
                console.log('sono in getInizializzazione doLogin');
