@@ -1342,16 +1342,7 @@ function callAVANEW(agent) {
               var arIDS=[]; //adsceId degli esami del libretto
               var arEsami=[]; //descrizioni degli esami del libretto
               
-                controller.doLogin().then((stud)=>{
-                  console.log('risultato '+stud);
-                
-               
-                }).catch((error) => {
-                  console.log('Errore : ' +error);
-                })
-              
-             
-              /*controller.doLogin().then((stud) => { 
+              controller.doLogin().then((stud) => { 
                console.log('sono in getInizializzazione doLogin');
                console.log('questo il valore di studente '+ JSON.stringify(stud));
                uID=stud.userId;
@@ -1392,7 +1383,7 @@ function callAVANEW(agent) {
             }).catch((error) => {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
                  
-            });*/
+            });
            
            
             
