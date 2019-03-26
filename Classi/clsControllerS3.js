@@ -789,7 +789,7 @@ function getSingoloAppelloDaPrenotare(cdsId,adId){
     return new Promise(function(resolve, reject) {
         var options = { 
             method: 'GET',
-            url: strUrlGetAppelloDaPrenotare  + cdsId +'/' + adId + '/?q=APPELLI_PRENOTABILI', //'/?stato=P',
+            url: strUrlGetAppelloDaPrenotare  + cdsId +'/' + adId + '/?stato=P', //'/?stato=P'    /?q=APPELLI_PRENOTABILI,
             headers: 
                 { 
                     'cache-control': 'no-cache',

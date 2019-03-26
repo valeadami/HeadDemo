@@ -1413,7 +1413,7 @@ function callAVANEW(agent) {
           //************* PRENOTAZIONE 25/03/2019 */
           case 'getPrenotazioneAppelli':
           var idAp=''; 
-          controller.getPrenotazioni(matId).then((prenotazioni) => { 
+         /* controller.getPrenotazioni(matId).then((prenotazioni) => { 
              console.log('1) sono in getPrenotazioni'); //+ JSON.stringify(prenotazioni)
             
              if (Array.isArray(prenotazioni)){
@@ -1426,8 +1426,8 @@ function callAVANEW(agent) {
               console.log('**********idAp=========='+idAp);
             }
             return idAp;
-          }).then(function (idAp){
-            controller.getAppelloDaPrenotare(cdsId,idAp).then((appelliDaPrenotare)=>{
+          }).then(function (idAp){*/
+            controller.getAppelloDaPrenotare(cdsId,111218).then((appelliDaPrenotare)=>{
               if (Array.isArray(appelliDaPrenotare)){
                 console.log('2) sono dentro getAppelloDaPrenotare');
                 var strTemp='';
@@ -1452,10 +1452,10 @@ function callAVANEW(agent) {
              }).catch((error) => {
             console.log('Si è verificato errore in getPrenotazioneAppelli-> getAppelloDaPrenotare ' +error);
           });
-  
+  /*
         }).catch((error) => {
           console.log('Si è verificato errore in getPrenotazioneAppelli: ' +error);
-        }); 
+        }); */
 
               break;
         default:
