@@ -1341,7 +1341,7 @@ function callAVANEW(agent) {
               var arAdId=[]; //array per adId per la prenotazione
               var arIDS=[]; //adsceId degli esami del libretto
               var arEsami=[]; //descrizioni degli esami del libretto
-              try{
+              
                 controller.doLogin().then((stud)=>{
                   console.log('risultato '+stud);
                 
@@ -1349,9 +1349,7 @@ function callAVANEW(agent) {
                 }).catch((error) => {
                   console.log('Errore : ' +error);
                 })
-              }catch{
-                console.log('**************** STO PORCO DE DIO*************** ' );
-              }
+              
              
               /*controller.doLogin().then((stud) => { 
                console.log('sono in getInizializzazione doLogin');

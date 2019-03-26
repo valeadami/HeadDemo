@@ -43,7 +43,6 @@ function getEsseTreLogin(){
     }
    
     request(options, function (error, response, body) {
-        try{
         if (error) {
             reject(error);
             console.log('errore in doLogin '+ error);
@@ -52,27 +51,24 @@ function getEsseTreLogin(){
                 console.log(body);
                 resolve(body); //ritorna una oggetto json
             }  else if (response.statusCode=401){
-              
+              console.log("Errore 401 utente non trovato")
                 //così ritorno una stringa...
                  //resolve('ERRORE'+body.retErrMsg); 
                  //...ma sarebbe meglio fare un reject
-                 reject("Errore 401 utente non trovato");
+                // reject("Errore 401 utente non trovato");
                }else{
                  console.log('si è verificato altro errore');
                }
             }
-        } catch {
-            console.log('sono nel catch di getEsseTreLogin');
-        }
+       
     });
-
+  
 });
 
 }
 //modifica del 26/03/2019
 function doLogin(){
     return new Promise(function(resolve, reject) {
-        try{
     getEsseTreLogin().then((body)=>{
        var stud; //15/01/2019 non studente perchè è un riferimento al modulo 
         stud=new studente(body.user.codFis,body.user.firstName,body.user.lastName,body.user.grpDes,body.user.grpId,body.user.id, body.user.persId,body.user.userId,body.user.trattiCarriera);
@@ -83,11 +79,7 @@ function doLogin(){
         console.log('sono in doLogin: ' +error);
        // reject(new Error(" DoLogin: Errore 401 utente non trovato"), null);
       });
-    }catch{
-        console.log('sono nel catch di doLogin');
-    }
 });
-
 }
 //riscrivo doLogin con le promise
 function doLogout(){
