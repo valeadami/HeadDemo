@@ -53,7 +53,7 @@ function getEsseTreLogin(){
             }  else if (response.statusCode=401){
               
                 //così ritorno una stringa...
-                 //resolve('ritorno il messaggio di errore '+body.retErrMsg); 
+                 //resolve('ERRORE'+body.retErrMsg); 
                  //...ma sarebbe meglio fare un reject
                  reject("Errore 401 utente non trovato");
                }else{
@@ -76,7 +76,7 @@ function doLogin(){
 
     }).catch((error) => {
         console.log('sono in doLogin: ' +error);
-        reject(new Error(" DoLogin: Errore 401 utente non trovato"), null);
+       // reject(new Error(" DoLogin: Errore 401 utente non trovato"), null);
       });
 });
 }

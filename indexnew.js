@@ -1341,7 +1341,14 @@ function callAVANEW(agent) {
               var arAdId=[]; //array per adId per la prenotazione
               var arIDS=[]; //adsceId degli esami del libretto
               var arEsami=[]; //descrizioni degli esami del libretto
-              controller.doLogin().then((stud) => { 
+              doLogin().then((stud)=>{
+                console.log('risultato '+stud);
+              
+              
+              }).catch((error) => {
+                console.log('Errore : ' +error);
+              });
+              /*controller.doLogin().then((stud) => { 
                console.log('sono in getInizializzazione doLogin');
                console.log('questo il valore di studente '+ JSON.stringify(stud));
                uID=stud.userId;
@@ -1351,8 +1358,8 @@ function callAVANEW(agent) {
                //MODIFICA DEL 25/03/2019
                cdsId=stud.trattiCarriera[0].cdsId;
                console.log('CORSO DI STUDIO ID  ='+cdsId);
-               //********** */modifica del  20/03/2019   così ho in un contesto solo tutti i dati *******************
-                /*  controller.getLibretto().then((libretto)=> {
+               //modifica del  20/03/2019   così ho in un contesto solo tutti i dati *******************
+                  controller.getLibretto().then((libretto)=> {
                   
                     if (Array.isArray(libretto)){
                       console.log('sono in getInizializzazione getLibretto');
@@ -1377,34 +1384,13 @@ function callAVANEW(agent) {
                       console.log('Si è verificato errore in getInizializzazione -getLibretto: ' +error);
                     });
 
-            */
+            
                 
             }).catch((error) => {
                   console.log('Si è verificato errore in getInizializzazione -doLogin: ' +error);
-                  agent.add(error);
-                  resolve(agent);
-            });
-            //recupero dati del libretto OLD DEL 20/03/2019
-           /* controller.getLibretto().then((libretto)=> {
-              
-              if (Array.isArray(libretto)){
-                console.log('sono in getInizializzazione getLibretto');
-                for(var i=0; i<libretto.length; i++){
                  
-                  arIDS.push(libretto[i].adsceId);
-                  console.log('->inserito in arIDS '+arIDS[i]);
-                  arEsami.push(libretto[i].adDes);
-                  console.log('->inserito in arEsami '+arEsami[i]);
-                }
-               
-               agent.context.set({ name: 'contestolibretto', lifespan: 20, parameters: { "adsceId":arIDS, "esami":arEsami}});
-               agent.add(strOutput);
-               resolve(agent); 
-             
-              }
-              }).catch((error) => {
-                console.log('Si è verificato errore in getInizializzazione -getLibretto: ' +error);
-              });*/
+            });*/
+           
            
             
           break;
