@@ -76,7 +76,7 @@ function doLogin(){
 
     }).catch((error) => {
         console.log('sono in doLogin: ' +error);
-       
+        reject(new Error(" DoLogin: Errore 401 utente non trovato"), null);
       });
 });
 }
